@@ -1,0 +1,96 @@
+{
+    "name": "Elasticsearch",
+    "description": "We're the creators of Elasticsearch, Kibana, Beats, and Logstash -- the Elastic Stack. Securely and reliably search, analyze, and visualize your data.",
+    "image": "http:\/\/kinlane-productions.s3.amazonaws.com\/screen-capture-api\/1910-elasticsearch.jpg",
+    "tags": [
+        "api provider",
+        "api service provider",
+        "deployment",
+        "have api",
+        "netherlands",
+        "search"
+    ],
+    "created": "2019-12-19",
+    "modified": "2019-12-19",
+    "url": "https:\/\/raw.githubusercontent.com\/api-evangelist\/elasticsearch\/master\/apis.json",
+    "specificationVersion": "0.14",
+    "apis": [
+        {
+            "name": "Elasticsearch",
+            "description": null,
+            "image": "http:\/\/kinlane-productions.s3.amazonaws.com\/screen-capture-api\/1910-elasticsearch.jpg",
+            "humanURL": "http:\/\/www.elasticsearch.org\/",
+            "baseURL": "",
+            "tags": [],
+            "properties": [
+                {
+                    "type": "x-openapi",
+                    "url": "https:\/\/raw.githubusercontent.com\/api-evangelist\/1forge\/master\/elasticsearch-openapi.json"
+                }
+            ]
+        }
+    ],
+    "include": [],
+    "x-common": [
+        {
+            "type": "Blog",
+            "url": "http:\/\/www.elasticsearch.org\/blog\/"
+        },
+        {
+            "type": "Blog RSS",
+            "url": "http:\/\/www.elasticsearch.org\/feed\/"
+        },
+        {
+            "type": "Crunchbase",
+            "url": "http:\/\/www.crunchbase.com\/company\/elasticsearch"
+        },
+        {
+            "type": "Crunchbase",
+            "url": "https:\/\/crunchbase.com\/organization\/elasticsearch"
+        },
+        {
+            "type": "Email",
+            "url": "sales@elastic.co"
+        },
+        {
+            "type": "Email",
+            "url": "info@elastic.co"
+        },
+        {
+            "type": "Email",
+            "url": "legal@elastic.co"
+        },
+        {
+            "type": "Email",
+            "url": "privacy@elastic.co"
+        },
+        {
+            "type": "Email",
+            "url": "partners@elastic.co"
+        },
+        {
+            "type": "Email",
+            "url": "pr@elastic.co"
+        },
+        {
+            "type": "Email",
+            "url": "elastic-japan@elastic.co"
+        },
+        {
+            "type": "Github",
+            "url": "https:\/\/github.com\/elasticsearch"
+        },
+        {
+            "type": "Twitter",
+            "url": "https:\/\/twitter.com\/elasticsearch"
+        },
+        {
+            "type": "Twitter",
+            "url": "https:\/\/twitter.com\/elastic"
+        },
+        {
+            "type": "Website",
+            "url": "http:\/\/www.elasticsearch.org\/"
+        }
+    ]
+}
