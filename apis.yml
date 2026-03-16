@@ -1,64 +1,62 @@
+aid: elasticsearch
 name: Elasticsearch API
-description: Open source search and analytics engine for all types of data, including textual, numerical, geospatial, structured, and unstructured.
-image: https://www.elastic.co/static-res/images/elastic-logo-200.png
-url: https://www.elastic.co/elasticsearch/
-created: '2024'
-modified: '2024'
-apis:
-- name: Elasticsearch REST API
-  description: RESTful API for indexing, searching, and managing data in Elasticsearch
-  image: https://www.elastic.co/static-res/images/elastic-logo-200.png
-  humanURL: https://www.elastic.co/guide/en/elasticsearch/reference/current/rest-apis.html
-  baseURL: https://localhost:9200
-  tags:
+description: >-
+  Elasticsearch is an open source search and analytics engine for all types of
+  data, including textual, numerical, geospatial, structured, and unstructured.
+  It provides a RESTful API for indexing, searching, and managing data, with
+  powerful aggregation capabilities and real-time analytics at scale.
+type: Index
+image: https://kinlane-productions.s3.amazonaws.com/apis-json/apis-json-logo.jpg
+tags:
   - Search
   - Analytics
   - Database
   - NoSQL
-  - Full-Text Search
-  properties:
+  - Full-text Search
+url: https://www.elastic.co/elasticsearch/
+created: '2024-01-01'
+modified: '2026-03-16'
+position: Consumer
+access: 3rd-Party
+specificationVersion: '0.19'
+apis:
+  - aid: elasticsearch:elasticsearch-rest-api
+    name: Elasticsearch REST API
+    description: >-
+      RESTful API for indexing, searching, and managing data in Elasticsearch
+      clusters, including document, index, cluster, and security operations.
+    humanURL: https://www.elastic.co/guide/en/elasticsearch/reference/current/rest-apis.html
+    baseURL: https://localhost:9200
+    tags:
+      - Search
+      - Analytics
+      - Database
+    properties:
+      - type: Documentation
+        url: https://www.elastic.co/guide/en/elasticsearch/reference/current/index.html
+      - type: OpenAPI
+        url: https://github.com/elastic/elasticsearch-specification
+common:
+  - type: Website
+    url: https://www.elastic.co/elasticsearch/
   - type: Documentation
     url: https://www.elastic.co/guide/en/elasticsearch/reference/current/index.html
-  - type: OpenAPI
-    url: https://github.com/elastic/elasticsearch-specification
-  - type: API Reference
-    url: https://www.elastic.co/guide/en/elasticsearch/reference/current/rest-apis.html
-  - type: Getting Started
+  - type: GettingStarted
     url: https://www.elastic.co/guide/en/elasticsearch/reference/current/getting-started.html
-  - type: Tutorials
-    url: https://www.elastic.co/guide/en/elasticsearch/reference/current/search-your-data.html
-  contact:
+  - type: Blog
+    url: https://www.elastic.co/blog/
+  - type: Status
+    url: https://status.elastic.co/
+  - type: TermsOfService
+    url: https://www.elastic.co/agreements/
+  - type: PrivacyPolicy
+    url: https://www.elastic.co/legal/privacy-statement
+  - type: Pricing
+    url: https://www.elastic.co/pricing/
   - type: Support
     url: https://www.elastic.co/support
-  - type: Community
-    url: https://discuss.elastic.co/
-  - type: GitHub
-    url: https://github.com/elastic/elasticsearch
-common:
-- type: Portal
-  url: https://www.elastic.co/
-- type: Blog
-  url: https://www.elastic.co/blog/
-- type: Status
-  url: https://status.elastic.co/
-- type: Terms of Service
-  url: https://www.elastic.co/agreements/
-- type: Privacy Policy
-  url: https://www.elastic.co/legal/privacy-statement
-- type: Pricing
-  url: https://www.elastic.co/pricing/
-- type: Cloud Console
-  url: https://cloud.elastic.co/
-- type: Downloads
-  url: https://www.elastic.co/downloads/elasticsearch
-- type: Docker
-  url: https://www.docker.elastic.co/
+  - type: GitHubOrganization
+    url: https://github.com/elastic
 maintainers:
-- name: Elastic
-  email: info@elastic.co
-  url: https://www.elastic.co/
-include:
-- name: Kibana API
-  url: https://www.elastic.co/guide/en/kibana/current/api.html
-- name: Logstash
-  url: https://www.elastic.co/guide/en/logstash/current/index.html
+  - FN: Kin Lane
+    email: kin@apievangelist.com
