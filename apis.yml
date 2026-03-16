@@ -1,5 +1,5 @@
 aid: elasticsearch
-name: Elasticsearch API
+name: Elasticsearch
 description: >-
   Elasticsearch is an open source search and analytics engine for all types of
   data, including textual, numerical, geospatial, structured, and unstructured.
