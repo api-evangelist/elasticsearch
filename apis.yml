@@ -8,11 +8,11 @@ description: >-
 type: Index
 image: https://kinlane-productions.s3.amazonaws.com/apis-json/apis-json-logo.jpg
 tags:
-  - Search
   - Analytics
   - Database
+  - Full-Text Search
   - NoSQL
-  - Full-text Search
+  - Search
 url: https://www.elastic.co/elasticsearch/
 created: '2024-01-01'
 modified: '2026-03-16'
@@ -28,9 +28,9 @@ apis:
     humanURL: https://www.elastic.co/guide/en/elasticsearch/reference/current/rest-apis.html
     baseURL: https://localhost:9200
     tags:
-      - Search
       - Analytics
       - Database
+      - Search
     properties:
       - type: Documentation
         url: https://www.elastic.co/guide/en/elasticsearch/reference/current/index.html
