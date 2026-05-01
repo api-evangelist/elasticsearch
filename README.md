@@ -1,47 +1,58 @@
-# Elasticsearch API (elasticsearch)
-Open source search and analytics engine for all types of data, including textual, numerical, geospatial, structured, and unstructured.
+# Elasticsearch (elasticsearch)
 
-**URL:** [Visit APIs.json URL](https://www.elastic.co/elasticsearch/)
+Elasticsearch is an open source search and analytics engine for all types of data, including textual, numerical, geospatial, structured, and unstructured. It provides a RESTful API for indexing, searching, and managing data, with powerful aggregation capabilities and real-time analytics at scale.
+
+**URL:** [https://www.elastic.co/elasticsearch/](https://www.elastic.co/elasticsearch/)
+
+## Scope
+
+- **Type:** Index
+- **Position:** Consumer
+- **Access:** 3rd-Party
+
+## Tags
+
+- Analytics, Database, Full-Text Search, NoSQL, Search
 
 ## Timestamps
 
-- **Created:** 2024 
-- **Modified:** 2024 
+- **Created:** 2024-01-01
+- **Modified:** 2026-04-28
 
 ## APIs
 
 ### Elasticsearch REST API
-RESTful API for indexing, searching, and managing data in Elasticsearch
+
+RESTful API for indexing, searching, and managing data in Elasticsearch clusters, including document, index, cluster, and security operations.
 
 **Human URL:** [https://www.elastic.co/guide/en/elasticsearch/reference/current/rest-apis.html](https://www.elastic.co/guide/en/elasticsearch/reference/current/rest-apis.html)
 
+**Base URL:** https://localhost:9200
 
-#### Tags:
+#### Tags
 
- - Search, Analytics, Database, NoSQL, Full-Text Search
+- Analytics, Database, Search
 
 #### Properties
 
 - [Documentation](https://www.elastic.co/guide/en/elasticsearch/reference/current/index.html)
 - [OpenAPI](https://github.com/elastic/elasticsearch-specification)
-- [API Reference](https://www.elastic.co/guide/en/elasticsearch/reference/current/rest-apis.html)
-- [Getting Started](https://www.elastic.co/guide/en/elasticsearch/reference/current/getting-started.html)
-- [Tutorials](https://www.elastic.co/guide/en/elasticsearch/reference/current/search-your-data.html)
 
 ## Common Properties
 
-- [Portal](https://www.elastic.co/)
+- [Website](https://www.elastic.co/elasticsearch/)
+- [Documentation](https://www.elastic.co/guide/en/elasticsearch/reference/current/index.html)
+- [GettingStarted](https://www.elastic.co/guide/en/elasticsearch/reference/current/getting-started.html)
 - [Blog](https://www.elastic.co/blog/)
 - [Status](https://status.elastic.co/)
-- [Terms of Service](https://www.elastic.co/agreements/)
-- [Privacy Policy](https://www.elastic.co/legal/privacy-statement)
+- [TermsOfService](https://www.elastic.co/agreements/)
+- [PrivacyPolicy](https://www.elastic.co/legal/privacy-statement)
 - [Pricing](https://www.elastic.co/pricing/)
-- [Cloud Console](https://cloud.elastic.co/)
-- [Downloads](https://www.elastic.co/downloads/elasticsearch)
-- [Docker](https://www.docker.elastic.co/)
+- [Support](https://www.elastic.co/support)
+- [GitHubOrganization](https://github.com/elastic)
 
 ## Maintainers
 
-**FN:** Elastic
+**FN:** Kin Lane
 
-**Email:** info@elastic.co
+**Email:** kin@apievangelist.com
