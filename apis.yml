@@ -72,6 +72,10 @@ common:
       - https://www.elastic.co/pricing
       - https://focus.finops.org/
     updated: '2026-05-04'
+  - type: Integrations
+    url: https://www.elastic.co/integrations
+integrations:
+  - name: Become a partner
 maintainers:
   - FN: Kin Lane
     email: kin@apievangelist.com
