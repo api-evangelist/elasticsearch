@@ -42,7 +42,7 @@ common:
     url: https://www.elastic.co/guide/en/elasticsearch/reference/current/getting-started.html
   - type: Blog
     url: https://www.elastic.co/blog/
-  - type: Status
+  - type: StatusPage
     url: https://status.elastic.co/
   - type: TermsOfService
     url: https://www.elastic.co/agreements/
