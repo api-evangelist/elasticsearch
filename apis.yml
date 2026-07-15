@@ -34,6 +34,8 @@ apis:
       - type: OpenAPI
         url: https://github.com/elastic/elasticsearch-specification
 common:
+  - type: AgenticAccess
+    url: agentic-access/elasticsearch-agentic-access.yml
   - type: TrustCenter
     url: security/elasticsearch-trust-center.yml
   - type: DomainSecurity
