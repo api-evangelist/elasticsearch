@@ -1,12 +1,19 @@
-generated: '2026-07-11'
-method: derived
+generated: '2026-06-20'
+method: searched
 source: openapi/elasticsearch-openapi.yml
+docs: https://www.elastic.co/docs/deploy-manage/users-roles/cluster-or-deployment-auth
 summary:
   types:
   - apiKey
   - http
   api_key_in:
   - header
+  model: >-
+    Elasticsearch REST API authentication is per-cluster. HTTP Basic and API
+    keys are the primary programmatic mechanisms; the security layer also
+    supports bearer/service tokens, PKI (mutual TLS), and enterprise SSO realms
+    (SAML, OIDC, Kerberos, LDAP/Active Directory). Authorization is
+    role-based (RBAC) via cluster and index privileges, not OAuth scopes.
 schemes:
 - name: basicAuth
   type: http
@@ -17,5 +24,25 @@ schemes:
   type: apiKey
   in: header
   parameter: Authorization
+  format: '"Authorization: ApiKey <base64(id:api_key)>"'
+  docs: https://www.elastic.co/docs/reference/elasticsearch/rest-apis/create-api-keys
   sources:
   - openapi/elasticsearch-openapi.yml
+realms:
+- native
+- api_key
+- token (bearer / service account tokens)
+- pki (mutual TLS)
+- saml
+- oidc
+- kerberos
+- ldap
+- active_directory
+authorization:
+  model: rbac
+  concepts:
+    - cluster privileges
+    - index privileges
+    - application privileges
+    - roles and role mappings
+  docs: https://www.elastic.co/docs/deploy-manage/users-roles/cluster-or-deployment-auth/user-roles

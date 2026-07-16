@@ -1,0 +1,61 @@
+generated: '2026-06-20'
+method: searched
+source: openapi/elasticsearch-openapi.yml
+docs: https://www.elastic.co/docs/reference/elasticsearch/rest-apis/api-conventions
+format: elasticsearch-error-envelope
+envelope:
+  description: >-
+    Elasticsearch returns a JSON body with an "error" object and a numeric
+    "status" field mirroring the HTTP status code. This is NOT RFC 9457
+    application/problem+json.
+  fields:
+    - error.type: Machine-readable exception type (e.g. illegal_argument_exception, index_not_found_exception).
+    - error.reason: Human-readable explanation.
+    - error.root_cause: Array of the underlying causes (each with type + reason).
+    - error.caused_by: Nested exception chain (optional).
+    - error.stack_trace: Java stack trace, included only when ?error_trace=true.
+    - status: HTTP status code as an integer.
+  example:
+    error:
+      root_cause:
+        - type: illegal_argument_exception
+          reason: "Failed to parse int parameter [size] with value [surprise_me]"
+      type: illegal_argument_exception
+      reason: "Failed to parse int parameter [size] with value [surprise_me]"
+      caused_by:
+        type: number_format_exception
+        reason: 'For input string: "surprise_me"'
+    status: 400
+problems:
+  - status: 400
+    type: illegal_argument_exception
+    title: Bad request / invalid parameter
+    remediation: Fix the malformed query parameter, request body, or DSL.
+  - status: 401
+    type: security_exception
+    title: Missing or invalid authentication
+    remediation: Provide valid HTTP basic credentials or an API key.
+  - status: 403
+    type: security_exception
+    title: Insufficient privileges
+    remediation: Grant the user/role the required cluster or index privileges.
+  - status: 404
+    type: index_not_found_exception
+    title: Index or document not found
+    remediation: Verify the index/document exists; HEAD /{index} checks existence.
+    source_operation: openapi/elasticsearch-openapi.yml#indexExists
+  - status: 409
+    type: version_conflict_engine_exception
+    title: Version conflict
+    remediation: Retry with current if_seq_no/if_primary_term (optimistic concurrency).
+  - status: 429
+    type: circuit_breaking_exception
+    title: Too many requests / circuit breaker tripped
+    remediation: Back off and retry; reduce request size or concurrency.
+  - status: 500
+    type: exception
+    title: Internal server error
+  - status: 503
+    type: cluster_block_exception
+    title: Service unavailable / cluster blocked
+    remediation: Cluster is red, recovering, or in read-only block; wait or resolve the block.

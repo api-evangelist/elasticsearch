@@ -1,0 +1,34 @@
+generated: '2026-06-20'
+method: searched
+source: https://github.com/elastic/eui
+note: >-
+  Client-side / embeddable UI component libraries published by Elastic. Distinct
+  from the server-side SDKs in packages/. Search UI provides prebuilt search
+  experience components backed by Elasticsearch / App Search.
+families:
+  - name: Elastic UI Framework (EUI)
+    description: React component library and design system used to build Kibana and Elastic UIs (CSS-in-JS via Emotion).
+    docs: https://eui.elastic.co/
+    repo: https://github.com/elastic/eui
+    packages:
+      - registry: npm
+        name: "@elastic/eui"
+        url: https://www.npmjs.com/package/@elastic/eui
+        install: npm i @elastic/eui
+  - name: Search UI
+    description: Headless + React libraries for building modern search experiences (facets, results, paging, sorting).
+    docs: https://www.elastic.co/docs/reference/search-ui
+    repo: https://github.com/elastic/search-ui
+    packages:
+      - registry: npm
+        name: "@elastic/search-ui"
+        url: https://www.npmjs.com/package/@elastic/search-ui
+        install: npm i @elastic/search-ui
+      - registry: npm
+        name: "@elastic/react-search-ui"
+        url: https://www.npmjs.com/package/@elastic/react-search-ui
+        install: npm i @elastic/react-search-ui
+      - registry: npm
+        name: "@elastic/react-search-ui-views"
+        url: https://www.npmjs.com/package/@elastic/react-search-ui-views
+        install: npm i @elastic/react-search-ui-views

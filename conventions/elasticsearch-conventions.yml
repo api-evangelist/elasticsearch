@@ -1,0 +1,56 @@
+generated: '2026-06-20'
+method: searched
+source: https://www.elastic.co/docs/reference/elasticsearch/rest-apis/api-conventions
+docs:
+  api_conventions: https://www.elastic.co/docs/reference/elasticsearch/rest-apis/api-conventions
+  common_options: https://www.elastic.co/docs/reference/elasticsearch/rest-apis/common-options
+authentication:
+  style: HTTP Basic or API key (Authorization header); RBAC authorization
+  ref: authentication/elasticsearch-authentication.yml
+content_type:
+  request: application/json (application/x-ndjson for _bulk)
+  strict: true
+  note: Elasticsearch enforces strict Content-Type checking on REST requests.
+idempotency:
+  header: null
+  model: >-
+    No Idempotency-Key. Document writes are idempotent by _id (PUT /_doc/{id}).
+    Optimistic concurrency uses if_seq_no + if_primary_term; op_type=create
+    fails if the document already exists.
+pagination:
+  default: from-size
+  params: [from, size]
+  default_limit: 10
+  max_result_window: 10000
+  deep_paging:
+    - search_after
+    - point-in-time (PIT)
+    - scroll
+  response_fields: [hits.total, hits.hits, _scroll_id]
+filtering:
+  response_filtering: filter_path query param (dot-path include/exclude of response fields)
+  source_filtering: _source, _source_includes, _source_excludes
+metadata:
+  document_metadata: [_index, _id, _version, _seq_no, _primary_term, _score]
+formatting:
+  pretty: "?pretty=true for human-readable JSON"
+  human: "?human=true for human-readable units (durations, byte sizes)"
+  flat_settings: "?flat_settings for flattened settings keys"
+request_tracing:
+  header: X-Opaque-Id (client-supplied request id echoed in tasks, slow logs, and audit logs)
+versioning:
+  scheme: semver (Elastic Stack X.Y.Z)
+  rest_api_compatibility: "compatible-with=N media-type parameter for cross-major upgrades"
+  ref: lifecycle/elasticsearch-lifecycle.yml
+error_envelope:
+  shape: '{"error": {"type","reason","root_cause","caused_by"}, "status": <int>}'
+  problem_json: false
+  ref: errors/elasticsearch-problem-types.yml
+rate_limiting:
+  model: >-
+    No fixed per-request rate limit; back-pressure is enforced by circuit
+    breakers (429 circuit_breaking_exception) and the bulk/write thread-pool
+    queues (429 es_rejected_execution_exception).
+  ref: rate-limits/elasticsearch-rate-limits.yml
+multi_target:
+  note: Most APIs accept comma-separated indices, wildcards, and _all; date-math index names are supported.

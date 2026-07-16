@@ -1,0 +1,36 @@
+generated: '2026-06-20'
+method: derived
+source: openapi/elasticsearch-openapi.yml
+standards:
+  - id: oauth2
+    conforms: false
+    evidence: No oauth2 securityScheme; auth is HTTP basic + API key (see authentication/).
+  - id: oidc
+    conforms: false
+    evidence: >-
+      No OIDC discovery on the API host. Elasticsearch does support an OpenID
+      Connect authentication realm on the cluster side, but the REST API itself
+      does not expose OIDC endpoints.
+  - id: rfc9457-problem-details
+    conforms: false
+    evidence: >-
+      Errors use Elasticsearch's own JSON envelope (error.type / error.reason /
+      root_cause / status), not application/problem+json.
+  - id: pagination
+    conforms: true
+    evidence: from/size params plus search_after, point-in-time, and scroll for deep paging.
+  - id: idempotency
+    conforms: partial
+    evidence: >-
+      No Idempotency-Key header. Document writes are idempotent by _id (PUT), and
+      optimistic concurrency uses if_seq_no/if_primary_term and op_type=create.
+  - id: json-api
+    conforms: false
+  - id: fhir-r4
+    conforms: false
+  - id: fapi
+    conforms: false
+  - id: scim
+    conforms: false
+  - id: odata
+    conforms: false

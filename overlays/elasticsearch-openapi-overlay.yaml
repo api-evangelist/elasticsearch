@@ -1,0 +1,35 @@
+overlay: 1.0.0
+info:
+  title: API Evangelist enhancements for Elasticsearch REST API
+  version: 1.0.0
+extends: openapi/elasticsearch-openapi.yml
+actions:
+  - target: $.info
+    update:
+      x-apievangelist-provider: elasticsearch
+      x-apievangelist-artifacts:
+        packages: packages/elasticsearch-packages.yml
+        mcp: mcp/elasticsearch-mcp.yml
+        authentication: authentication/elasticsearch-authentication.yml
+        conventions: conventions/elasticsearch-conventions.yml
+        errors: errors/elasticsearch-problem-types.yml
+        lifecycle: lifecycle/elasticsearch-lifecycle.yml
+        conformance: conformance/elasticsearch-conformance.yml
+        data-model: data-model/elasticsearch-data-model.yml
+  - target: $.info
+    update:
+      x-error-envelope: >-
+        Elasticsearch returns a JSON error envelope: {"error": {"root_cause":[...],
+        "type": "...", "reason": "...", "caused_by": {...}}, "status": <http-code>}.
+        This is not RFC 9457 application/problem+json.
+  - target: $.paths['/{index}/_search'].get
+    update:
+      x-pagination:
+        style: from-size
+        params: [from, size]
+        deep-paging-alternatives: [search_after, point-in-time, scroll]
+  - target: $.paths['/{index}/_doc/{id}'].put
+    update:
+      x-concurrency-control: >-
+        Optimistic concurrency via if_seq_no + if_primary_term query params, or
+        op_type=create to fail when the document already exists.

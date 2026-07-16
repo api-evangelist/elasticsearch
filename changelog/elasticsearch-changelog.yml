@@ -1,0 +1,36 @@
+generated: '2026-06-20'
+method: searched
+source: https://www.elastic.co/docs/release-notes/elasticsearch
+scheme: semver
+current: 9.4.x
+breaking_changes: https://www.elastic.co/docs/release-notes/elasticsearch/breaking-changes
+notes: >-
+  Recent window only; the live release notes are the source of truth.
+  Elasticsearch ships as part of the Elastic Stack and maintains parallel 8.x
+  and 9.x release trains.
+entries:
+  - version: 9.4.x
+    date: '2026-05'
+    highlights:
+      - Elasticsearch 9.4 powers the next phase of the Elastic AI platform (Agent Builder updates, Workflows GA).
+    additions: true
+    breaking: false
+  - version: 9.3.4
+    date: '2026-04-30'
+    highlights:
+      - Elastic Stack 9.3.4 patch release.
+    additions: false
+    breaking: false
+  - version: 8.19.15
+    date: '2026-04-30'
+    highlights:
+      - Elastic Stack 8.19.15 patch release (8.x maintenance train).
+    additions: false
+    breaking: false
+  - version: 9.0.0
+    date: '2025-04-08'
+    highlights:
+      - First 9.x GA; single continuously-updated docs set for the 9.x series.
+      - Behavioral Analytics deprecated; various 8.x deprecations removed.
+    additions: true
+    breaking: true

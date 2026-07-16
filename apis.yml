@@ -13,7 +13,7 @@ tags:
   - Search
 url: https://www.elastic.co/elasticsearch/
 created: '2024-01-01'
-modified: '2026-05-04'
+modified: '2026-06-20'
 position: Consumer
 access: 3rd-Party
 specificationVersion: '0.19'
@@ -33,9 +33,39 @@ apis:
         url: https://www.elastic.co/guide/en/elasticsearch/reference/current/index.html
       - type: OpenAPI
         url: https://github.com/elastic/elasticsearch-specification
+      - type: OpenAPI
+        url: openapi/elasticsearch-openapi.yml
 common:
   - type: AgenticAccess
     url: agentic-access/elasticsearch-agentic-access.yml
+  - type: Packages
+    url: packages/elasticsearch-packages.yml
+  - type: WellKnown
+    url: well-known/elasticsearch-well-known.yml
+  - type: MCPServer
+    url: mcp/elasticsearch-mcp.yml
+  - type: LLMsTxt
+    url: llms/elasticsearch-llms.txt
+  - type: Overlay
+    url: overlays/elasticsearch-openapi-overlay.yaml
+  - type: Conformance
+    url: conformance/elasticsearch-conformance.yml
+  - type: ErrorCatalog
+    url: errors/elasticsearch-problem-types.yml
+  - type: Lifecycle
+    url: lifecycle/elasticsearch-lifecycle.yml
+  - type: Conventions
+    url: conventions/elasticsearch-conventions.yml
+  - type: ChangeLog
+    url: changelog/elasticsearch-changelog.yml
+  - type: CLI
+    url: cli/elasticsearch-cli.yml
+  - type: Components
+    url: components/elasticsearch-components.yml
+  - type: DataModel
+    url: data-model/elasticsearch-data-model.yml
+  - type: VulnerabilityDisclosure
+    url: security/elasticsearch-vulnerability-disclosure.yml
   - type: TrustCenter
     url: security/elasticsearch-trust-center.yml
   - type: DomainSecurity

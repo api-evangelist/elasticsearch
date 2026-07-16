@@ -1,0 +1,43 @@
+generated: '2026-06-20'
+method: searched
+source: https://www.elastic.co/docs/reference/elasticsearch/command-line-tools
+docs: https://www.elastic.co/docs/reference/elasticsearch/command-line-tools
+note: >-
+  Elasticsearch ships first-party command-line tools in its bin/ directory for
+  node operation, security setup, and cluster maintenance. These are operator
+  tools; day-to-day data access uses the REST API and the language clients in
+  packages/. There is no single all-purpose "es" client binary.
+install:
+  - Bundled with the Elasticsearch distribution (bin/ directory).
+commands:
+  security:
+    - name: elasticsearch-keystore
+      description: Manage secure settings in the Elasticsearch keystore.
+    - name: elasticsearch-users
+      description: Manage users in the native/file realm.
+    - name: elasticsearch-reset-password
+      description: Reset the password of a native-realm user (e.g. elastic).
+    - name: elasticsearch-setup-passwords
+      description: Set built-in user passwords (deprecated in favor of reset-password).
+    - name: elasticsearch-certutil
+      description: Generate certificates and certificate signing requests for TLS.
+    - name: elasticsearch-service-tokens
+      description: Create and manage service account tokens.
+    - name: elasticsearch-create-enrollment-token
+      description: Create enrollment tokens to join nodes or enroll Kibana.
+    - name: elasticsearch-syskeygen
+      description: Generate a system key for the watcher/security features.
+    - name: elasticsearch-saml-metadata
+      description: Generate SAML SP metadata for the SAML realm.
+  node:
+    - name: elasticsearch
+      description: Start an Elasticsearch node.
+    - name: elasticsearch-node
+      description: Perform unsafe cluster/node recovery operations (detach-cluster, unsafe-bootstrap, etc.).
+    - name: elasticsearch-shard
+      description: Remove corrupted parts of a shard to recover it.
+    - name: elasticsearch-croneval
+      description: Evaluate a cron expression and show upcoming trigger times.
+  plugins:
+    - name: elasticsearch-plugin
+      description: Install, list, and remove Elasticsearch plugins.

@@ -1,0 +1,33 @@
+generated: '2026-06-20'
+method: searched
+status: published
+source: https://github.com/elastic/mcp-server-elasticsearch
+docs: https://www.elastic.co/search-labs/blog/model-context-protocol-elasticsearch
+server:
+  name: elasticsearch
+  official: true
+  transports:
+    - stdio
+    - http          # streamable-HTTP (replaces deprecated SSE)
+  docker_image: docker.elastic.co/mcp/elasticsearch
+  npm_package: "@elastic/mcp-server-elasticsearch"   # deprecated npm distribution
+  config:
+    - ES_URL
+    - ES_API_KEY
+  notes: >-
+    Official Elastic MCP server connecting AI agents to Elasticsearch data over
+    the Model Context Protocol. This standalone server is now deprecated and
+    receives only critical security updates; it is superseded by the Elastic
+    Agent Builder MCP endpoint available in Elastic 9.2.0+ and Elasticsearch
+    Serverless projects.
+tools:
+  - name: list_indices
+    description: List all available Elasticsearch indices.
+  - name: get_mappings
+    description: Get field mappings for a specific Elasticsearch index.
+  - name: search
+    description: Perform an Elasticsearch search using Query DSL.
+  - name: esql
+    description: Execute an ES|QL query.
+  - name: get_shards
+    description: Get shard information for all or specific indices.

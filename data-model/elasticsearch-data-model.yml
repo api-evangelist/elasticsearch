@@ -1,0 +1,42 @@
+generated: '2026-06-20'
+method: derived
+source: openapi/elasticsearch-openapi.yml
+docs: https://www.elastic.co/docs/reference/elasticsearch/rest-apis/api-conventions
+note: >-
+  Entity graph derived from the OpenAPI paths and Elasticsearch's documented
+  data model. Path parameters {index} and {id} express the primary
+  containment relationships.
+entities:
+  - name: Cluster
+    description: A collection of one or more nodes that together hold all data and provide search/indexing.
+    identified_by: cluster name
+    operations: [clusterHealth, clusterState, clusterStats, catHealth, catNodes]
+    relationships:
+      - has_many: Node
+      - has_many: Index
+  - name: Node
+    description: A single Elasticsearch server instance in a cluster.
+    operations: [catNodes]
+    relationships:
+      - belongs_to: Cluster
+      - has_many: Shard
+  - name: Index
+    description: A named collection of documents with a mapping; the primary addressable resource.
+    identified_by: index name (path {index})
+    operations: [createIndex, getIndex, deleteIndex, indexExists, catIndices]
+    relationships:
+      - belongs_to: Cluster
+      - has_many: Document
+      - has_many: Shard
+  - name: Shard
+    description: A Lucene index that is a horizontal partition of an index; primary and replica shards.
+    relationships:
+      - belongs_to: Index
+      - belongs_to: Node
+  - name: Document
+    description: A JSON object stored in an index and addressed by _id.
+    identified_by: _id (path {id}) within an {index}
+    operations: [indexDocument, getDocument, deleteDocument, updateDocument, bulk, searchUri, searchDsl]
+    metadata_fields: [_index, _id, _version, _seq_no, _primary_term, _score]
+    relationships:
+      - belongs_to: Index

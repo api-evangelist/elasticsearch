@@ -1,0 +1,59 @@
+generated: '2026-06-20'
+method: searched
+source: https://www.elastic.co/docs/reference/elasticsearch-clients
+packages:
+  - language: javascript
+    registry: npm
+    name: "@elastic/elasticsearch"
+    url: https://www.npmjs.com/package/@elastic/elasticsearch
+    install: npm install @elastic/elasticsearch
+    official: true
+  - language: python
+    registry: pypi
+    name: elasticsearch
+    url: https://pypi.org/project/elasticsearch/
+    install: pip install elasticsearch
+    official: true
+  - language: python
+    registry: pypi
+    name: eland
+    url: https://pypi.org/project/eland/
+    install: pip install eland
+    official: true
+    notes: Python DataFrames and machine learning client for Elasticsearch.
+  - language: java
+    registry: maven
+    name: co.elastic.clients:elasticsearch-java
+    url: https://central.sonatype.com/artifact/co.elastic.clients/elasticsearch-java
+    install: "implementation 'co.elastic.clients:elasticsearch-java'"
+    official: true
+  - language: csharp
+    registry: nuget
+    name: Elastic.Clients.Elasticsearch
+    url: https://www.nuget.org/packages/Elastic.Clients.Elasticsearch
+    install: dotnet add package Elastic.Clients.Elasticsearch
+    official: true
+  - language: php
+    registry: packagist
+    name: elasticsearch/elasticsearch
+    url: https://packagist.org/packages/elasticsearch/elasticsearch
+    install: composer require elasticsearch/elasticsearch
+    official: true
+  - language: ruby
+    registry: rubygems
+    name: elasticsearch
+    url: https://rubygems.org/gems/elasticsearch
+    install: gem install elasticsearch
+    official: true
+  - language: go
+    registry: pkg.go.dev
+    name: github.com/elastic/go-elasticsearch/v9
+    url: https://pkg.go.dev/github.com/elastic/go-elasticsearch/v9
+    install: go get github.com/elastic/go-elasticsearch/v9
+    official: true
+  - language: rust
+    registry: crates.io
+    name: elasticsearch
+    url: https://crates.io/crates/elasticsearch
+    install: cargo add elasticsearch
+    official: true

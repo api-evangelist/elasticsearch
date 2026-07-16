@@ -1,0 +1,29 @@
+generated: '2026-06-20'
+method: searched
+source: https://www.elastic.co/docs/get-started/versioning-availability
+versioning:
+  scheme: semver
+  format: X.Y.Z
+  current: 9.4.x
+  notes: >-
+    Elastic Stack (including Elasticsearch) follows Semantic Versioning. Since
+    9.0.0 Elastic publishes a single continuously-updated docs set for the 9.x
+    series rather than per-minor docs.
+  docs: https://www.elastic.co/docs/release-notes/elasticsearch
+compatibility:
+  rest_api_compatibility: >-
+    Clients can send an Accept/Content-Type media-type parameter
+    (compatible-with=N) to request prior-major REST API behavior during upgrades.
+  docs: https://www.elastic.co/docs/reference/elasticsearch/rest-apis/compatibility
+deprecation:
+  policy: >-
+    Functionality deprecated in a release is removed in a future major version;
+    a deprecation log and migration/upgrade assistant surface deprecated usage.
+  breaking_changes: https://www.elastic.co/docs/release-notes/elasticsearch/breaking-changes
+support:
+  policy: >-
+    Each major release series is maintained for the longer of 30 months after
+    the major GA date or 18 months after the following major GA date.
+  eol_reference: https://endoflife.date/elasticsearch
+status_page: https://status.elastic.co/
+deprecated_operations: []
