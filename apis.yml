@@ -72,6 +72,30 @@ common:
     url: security/elasticsearch-domain-security.yml
   - type: Authentication
     url: authentication/elasticsearch-authentication.yml
+  - type: Arazzo
+    url: arazzo/elasticsearch-index-bootstrap-workflow.yml
+    name: Elasticsearch Bootstrap an Index
+  - type: Arazzo
+    url: arazzo/elasticsearch-index-teardown-workflow.yml
+    name: Elasticsearch Tear Down an Index
+  - type: Arazzo
+    url: arazzo/elasticsearch-document-lifecycle-workflow.yml
+    name: Elasticsearch Document Lifecycle
+  - type: Arazzo
+    url: arazzo/elasticsearch-upsert-document-workflow.yml
+    name: Elasticsearch Upsert a Document by Business Key
+  - type: Arazzo
+    url: arazzo/elasticsearch-document-purge-workflow.yml
+    name: Elasticsearch Purge a Document by Business Key
+  - type: Arazzo
+    url: arazzo/elasticsearch-search-and-fetch-workflow.yml
+    name: Elasticsearch Search and Fetch the Top Hit
+  - type: Arazzo
+    url: arazzo/elasticsearch-bulk-load-workflow.yml
+    name: Elasticsearch Bulk Load and Verify
+  - type: Arazzo
+    url: arazzo/elasticsearch-cluster-health-triage-workflow.yml
+    name: Elasticsearch Cluster Health Triage
   - type: LinkedIn
     url: https://www.linkedin.com/company/elastic-co
   - type: Website

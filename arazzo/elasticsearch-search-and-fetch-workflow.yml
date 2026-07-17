@@ -1,0 +1,112 @@
+arazzo: 1.0.1
+info:
+  title: Elasticsearch Search and Fetch the Top Hit
+  summary: Run a quick URI search to size a result set, re-run it as a paged DSL query, and fetch the full source of the top hit.
+  description: >-
+    The read path a search-backed application actually walks. The workflow starts
+    with a cheap URI search to learn whether the query matches anything at all,
+    then re-runs the same intent as a structured DSL query with explicit paging
+    so the caller controls size and offset, and finally fetches the complete
+    document behind the top hit — because search responses are shaped for
+    ranking and may be trimmed by source filtering, while a direct get returns
+    the whole document. Every step spells out its request inline so the flow can
+    be read and executed without opening the underlying OpenAPI description.
+  version: 1.0.0
+sourceDescriptions:
+- name: elasticsearchApi
+  url: ../openapi/elasticsearch-openapi.yml
+  type: openapi
+workflows:
+- workflowId: search-and-fetch
+  summary: Probe a query with a URI search, page it with a DSL search, then fetch the top hit in full.
+  description: >-
+    Confirms a query matches, retrieves a paged and ranked result set through the
+    query DSL, and reads the full source of the highest scoring document.
+  inputs:
+    type: object
+    required:
+    - index
+    - queryString
+    - searchField
+    properties:
+      index:
+        type: string
+        description: The index to search.
+      queryString:
+        type: string
+        description: The user-supplied search terms.
+      searchField:
+        type: string
+        description: The field the DSL match query targets (e.g. "title").
+      size:
+        type: integer
+        description: The number of hits to return per page.
+      from:
+        type: integer
+        description: The offset into the result set, for paging.
+  steps:
+  - stepId: probeQuery
+    description: >-
+      Run a lightweight URI search to confirm the query matches something before
+      spending a structured query on it.
+    operationId: searchUri
+    parameters:
+    - name: index
+      in: path
+      value: $inputs.index
+    - name: q
+      in: query
+      value: $inputs.queryString
+    - name: size
+      in: query
+      value: 1
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      totalHits: $response.body#/hits/total/value
+      took: $response.body#/took
+  - stepId: pagedSearch
+    description: >-
+      Re-run the query through the query DSL with explicit size and from, giving
+      the caller ranked, paged control the URI search cannot express.
+    operationId: searchDsl
+    parameters:
+    - name: index
+      in: path
+      value: $inputs.index
+    requestBody:
+      contentType: application/json
+      payload:
+        query:
+          match:
+            $inputs.searchField: $inputs.queryString
+        size: $inputs.size
+        from: $inputs.from
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      hits: $response.body#/hits/hits
+      totalHits: $response.body#/hits/total/value
+      topHitId: $response.body#/hits/hits/0/_id
+      maxScore: $response.body#/hits/max_score
+  - stepId: fetchTopHit
+    description: >-
+      Fetch the complete document behind the top ranked hit, which returns the
+      full source rather than the ranking-shaped search projection.
+    operationId: getDocument
+    parameters:
+    - name: index
+      in: path
+      value: $inputs.index
+    - name: id
+      in: path
+      value: $steps.pagedSearch.outputs.topHitId
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      found: $response.body#/found
+      source: $response.body#/_source
+  outputs:
+    totalHits: $steps.pagedSearch.outputs.totalHits
+    hits: $steps.pagedSearch.outputs.hits
+    topHitSource: $steps.fetchTopHit.outputs.source

@@ -1,0 +1,127 @@
+arazzo: 1.0.1
+info:
+  title: Elasticsearch Purge a Document by Business Key
+  summary: Locate a document by a business key, delete it by its internal id, and prove it is no longer retrievable or searchable.
+  description: >-
+    The erasure path behind a data subject deletion request. A caller who must
+    remove a record usually knows a business key — an email address, a customer
+    id — not the internal Elasticsearch document id, so the workflow resolves one
+    to the other with a term query, deletes by id, and then proves the erasure
+    twice: once with a direct get that must answer 404, and once with a re-run of
+    the original query that must return zero hits. Proving erasure rather than
+    assuming it is the part that matters when the deletion has to be evidenced.
+    Every step spells out its request inline so the flow can be read and executed
+    without opening the underlying OpenAPI description.
+  version: 1.0.0
+sourceDescriptions:
+- name: elasticsearchApi
+  url: ../openapi/elasticsearch-openapi.yml
+  type: openapi
+workflows:
+- workflowId: purge-document
+  summary: Find a document by business key, delete it, and verify it is unreachable by both get and search.
+  description: >-
+    Resolves a document id from a business key, deletes the document, and
+    confirms the deletion with a direct get expecting 404 and a repeat search
+    expecting zero hits.
+  inputs:
+    type: object
+    required:
+    - index
+    - keyField
+    - keyValue
+    properties:
+      index:
+        type: string
+        description: The index holding the document to purge.
+      keyField:
+        type: string
+        description: The keyword field carrying the business key (e.g. "email").
+      keyValue:
+        type: string
+        description: The business key value identifying the document to purge.
+  steps:
+  - stepId: locateDocument
+    description: >-
+      Resolve the internal document id from the business key with a term query.
+      The workflow requires exactly a match here; a zero-hit result fails the
+      step because there is nothing to purge.
+    operationId: searchDsl
+    parameters:
+    - name: index
+      in: path
+      value: $inputs.index
+    requestBody:
+      contentType: application/json
+      payload:
+        query:
+          term:
+            $inputs.keyField: $inputs.keyValue
+        size: 1
+    successCriteria:
+    - condition: $statusCode == 200
+    - context: $response.body
+      condition: $.hits.total.value > 0
+      type: jsonpath
+    outputs:
+      documentId: $response.body#/hits/hits/0/_id
+      totalHits: $response.body#/hits/total/value
+  - stepId: deleteDocument
+    description: >-
+      Delete the located document by its internal id.
+    operationId: deleteDocument
+    parameters:
+    - name: index
+      in: path
+      value: $inputs.index
+    - name: id
+      in: path
+      value: $steps.locateDocument.outputs.documentId
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      result: $response.body#/result
+  - stepId: verifyGetFails
+    description: >-
+      Attempt a direct get of the deleted id. A 404 is the required outcome and
+      is the first half of the erasure evidence.
+    operationId: getDocument
+    parameters:
+    - name: index
+      in: path
+      value: $inputs.index
+    - name: id
+      in: path
+      value: $steps.locateDocument.outputs.documentId
+    successCriteria:
+    - condition: $statusCode == 404
+    outputs:
+      getStatus: $statusCode
+  - stepId: verifySearchEmpty
+    description: >-
+      Re-run the original business key query. Zero hits is the required outcome
+      and is the second half of the erasure evidence, confirming the document is
+      gone from the searchable view and not only from direct retrieval.
+    operationId: searchDsl
+    parameters:
+    - name: index
+      in: path
+      value: $inputs.index
+    requestBody:
+      contentType: application/json
+      payload:
+        query:
+          term:
+            $inputs.keyField: $inputs.keyValue
+        size: 1
+    successCriteria:
+    - condition: $statusCode == 200
+    - context: $response.body
+      condition: $.hits.total.value == 0
+      type: jsonpath
+    outputs:
+      remainingHits: $response.body#/hits/total/value
+  outputs:
+    purgedDocumentId: $steps.locateDocument.outputs.documentId
+    deleteResult: $steps.deleteDocument.outputs.result
+    remainingHits: $steps.verifySearchEmpty.outputs.remainingHits

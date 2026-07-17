@@ -1,0 +1,104 @@
+arazzo: 1.0.1
+info:
+  title: Elasticsearch Bulk Load and Verify
+  summary: Check the cluster can take writes, push an NDJSON bulk payload, verify the resulting document count, and inspect the index.
+  description: >-
+    The ingestion path for loading data at volume. The workflow confirms cluster
+    health, submits a bulk NDJSON payload, and then verifies the load rather than
+    trusting it — because the _bulk endpoint answers 200 even when individual
+    items inside the payload failed, so the response body's errors flag and a
+    follow-up count are the only honest confirmation. It closes by reading the
+    index through the cat API for a human-readable view of document count and
+    store size. Every step spells out its request inline so the flow can be read
+    and executed without opening the underlying OpenAPI description.
+  version: 1.0.0
+sourceDescriptions:
+- name: elasticsearchApi
+  url: ../openapi/elasticsearch-openapi.yml
+  type: openapi
+workflows:
+- workflowId: bulk-load-and-verify
+  summary: Submit a bulk NDJSON payload and confirm the documents actually landed.
+  description: >-
+    Verifies cluster health, submits the bulk payload, checks the per-item errors
+    flag, counts the documents now matching in the index, and reads the cat
+    indices view for the resulting size on disk.
+  inputs:
+    type: object
+    required:
+    - index
+    - ndjson
+    properties:
+      index:
+        type: string
+        description: The index the bulk payload targets, used for verification.
+      ndjson:
+        type: string
+        description: >-
+          The newline-delimited bulk body, alternating action and source lines,
+          terminated by a trailing newline.
+  steps:
+  - stepId: checkClusterReady
+    description: >-
+      Read cluster health before a volume write, so a red cluster stops the load
+      rather than absorbing a partial ingest.
+    operationId: clusterHealth
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      status: $response.body#/status
+      activeShards: $response.body#/active_shards
+  - stepId: submitBulk
+    description: >-
+      Submit the NDJSON payload. A 200 here only means the batch was processed,
+      not that every item succeeded, so the errors flag is captured as an output
+      for the caller to assert on.
+    operationId: bulk
+    requestBody:
+      contentType: application/x-ndjson
+      payload: $inputs.ndjson
+    successCriteria:
+    - condition: $statusCode == 200
+    - context: $response.body
+      condition: $.errors == false
+      type: jsonpath
+    outputs:
+      errors: $response.body#/errors
+      took: $response.body#/took
+      items: $response.body#/items
+  - stepId: verifyCount
+    description: >-
+      Count the documents now present in the index with a match_all query, giving
+      an independent confirmation that the bulk load landed.
+    operationId: searchDsl
+    parameters:
+    - name: index
+      in: path
+      value: $inputs.index
+    requestBody:
+      contentType: application/json
+      payload:
+        query:
+          match_all: {}
+        size: 0
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      documentCount: $response.body#/hits/total/value
+  - stepId: inspectIndex
+    description: >-
+      Read the cat indices view with verbose headers for a human-readable summary
+      of the index health, document count, and store size after the load.
+    operationId: catIndices
+    parameters:
+    - name: v
+      in: query
+      value: true
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      indicesTable: $response.body
+  outputs:
+    bulkErrors: $steps.submitBulk.outputs.errors
+    documentCount: $steps.verifyCount.outputs.documentCount
+    indicesTable: $steps.inspectIndex.outputs.indicesTable

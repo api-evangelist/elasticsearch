@@ -1,0 +1,109 @@
+arazzo: 1.0.1
+info:
+  title: Elasticsearch Bootstrap an Index
+  summary: Check the cluster is ready, create an index only if it does not already exist, and read back its settings and mappings.
+  description: >-
+    The first thing any Elasticsearch integration does. The workflow confirms the
+    cluster is in a serviceable state, probes for the target index, and branches:
+    when the index is already present it skips straight to reading it back, and
+    when it is absent it creates the index with the supplied settings and
+    mappings before reading it back. This makes the flow idempotent and safe to
+    re-run from a provisioning pipeline. Every step spells out its request inline
+    so the flow can be read and executed without opening the underlying OpenAPI
+    description.
+  version: 1.0.0
+sourceDescriptions:
+- name: elasticsearchApi
+  url: ../openapi/elasticsearch-openapi.yml
+  type: openapi
+workflows:
+- workflowId: bootstrap-index
+  summary: Idempotently create an Elasticsearch index and verify its resulting configuration.
+  description: >-
+    Verifies cluster health, detects whether the index exists, creates it when
+    missing, and reads back the resolved settings and mappings so the caller can
+    confirm the index matches the intended definition.
+  inputs:
+    type: object
+    required:
+    - index
+    properties:
+      index:
+        type: string
+        description: The name of the index to bootstrap (e.g. "products").
+      settings:
+        type: object
+        description: Index settings such as number_of_shards and number_of_replicas.
+      mappings:
+        type: object
+        description: The field mappings that define the index schema.
+  steps:
+  - stepId: checkClusterReady
+    description: >-
+      Read cluster health before writing anything, so the workflow fails fast
+      against a cluster that cannot accept an index creation.
+    operationId: clusterHealth
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      clusterName: $response.body#/cluster_name
+      status: $response.body#/status
+  - stepId: probeIndex
+    description: >-
+      Probe for the target index with a HEAD request. A 404 here is an expected
+      answer, not a failure, so both 200 and 404 are treated as success and the
+      status code drives the branch.
+    operationId: indexExists
+    parameters:
+    - name: index
+      in: path
+      value: $inputs.index
+    successCriteria:
+    - condition: $statusCode == 200 || $statusCode == 404
+    outputs:
+      probeStatus: $statusCode
+    onSuccess:
+    - name: indexAlreadyPresent
+      type: goto
+      stepId: readIndex
+      criteria:
+      - condition: $statusCode == 200
+    - name: indexMissing
+      type: goto
+      stepId: createIndex
+      criteria:
+      - condition: $statusCode == 404
+  - stepId: createIndex
+    description: >-
+      Create the index with the supplied settings and mappings. Only reached when
+      the probe returned 404, which keeps the workflow idempotent.
+    operationId: createIndex
+    parameters:
+    - name: index
+      in: path
+      value: $inputs.index
+    requestBody:
+      contentType: application/json
+      payload:
+        settings: $inputs.settings
+        mappings: $inputs.mappings
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      created: $response.body#/acknowledged
+  - stepId: readIndex
+    description: >-
+      Read the index back to confirm the settings and mappings Elasticsearch
+      actually resolved, which may include defaults the caller did not supply.
+    operationId: getIndex
+    parameters:
+    - name: index
+      in: path
+      value: $inputs.index
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      indexDefinition: $response.body
+  outputs:
+    clusterStatus: $steps.checkClusterReady.outputs.status
+    indexDefinition: $steps.readIndex.outputs.indexDefinition

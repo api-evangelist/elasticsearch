@@ -1,0 +1,100 @@
+arazzo: 1.0.1
+info:
+  title: Elasticsearch Tear Down an Index
+  summary: Confirm an index exists, capture its definition for the record, delete it, and verify it is gone.
+  description: >-
+    The destructive counterpart to index bootstrap, written to be safe to
+    automate. The workflow probes for the index and exits cleanly when it is
+    already absent rather than failing, captures the index definition before
+    deletion so the settings and mappings survive as a workflow output, deletes
+    the index, and then re-probes to confirm the delete actually took effect.
+    Capturing before deleting is the difference between a teardown you can
+    recreate from and one you cannot. Every step spells out its request inline so
+    the flow can be read and executed without opening the underlying OpenAPI
+    description.
+  version: 1.0.0
+sourceDescriptions:
+- name: elasticsearchApi
+  url: ../openapi/elasticsearch-openapi.yml
+  type: openapi
+workflows:
+- workflowId: teardown-index
+  summary: Safely delete an Elasticsearch index after recording its definition, then verify the deletion.
+  description: >-
+    Probes for the index, ends cleanly when it does not exist, snapshots its
+    settings and mappings into the workflow outputs, deletes it, and confirms
+    with a second probe that it is gone.
+  inputs:
+    type: object
+    required:
+    - index
+    properties:
+      index:
+        type: string
+        description: The name of the index to tear down.
+  steps:
+  - stepId: probeIndex
+    description: >-
+      Probe for the index. A 404 means there is nothing to tear down, which is a
+      successful no-op rather than an error, so the workflow ends there.
+    operationId: indexExists
+    parameters:
+    - name: index
+      in: path
+      value: $inputs.index
+    successCriteria:
+    - condition: $statusCode == 200 || $statusCode == 404
+    outputs:
+      probeStatus: $statusCode
+    onSuccess:
+    - name: indexPresent
+      type: goto
+      stepId: captureDefinition
+      criteria:
+      - condition: $statusCode == 200
+    - name: nothingToDelete
+      type: end
+      criteria:
+      - condition: $statusCode == 404
+  - stepId: captureDefinition
+    description: >-
+      Read the index definition before deleting it, so the settings and mappings
+      are preserved in the workflow outputs and the index can be recreated.
+    operationId: getIndex
+    parameters:
+    - name: index
+      in: path
+      value: $inputs.index
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      capturedDefinition: $response.body
+  - stepId: deleteIndex
+    description: >-
+      Delete the index and every document in it. This is irreversible without the
+      definition captured in the previous step and a fresh reload of the data.
+    operationId: deleteIndex
+    parameters:
+    - name: index
+      in: path
+      value: $inputs.index
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      acknowledged: $response.body#/acknowledged
+  - stepId: verifyGone
+    description: >-
+      Re-probe the index. A 404 is now the desired outcome and confirms the
+      delete was applied rather than merely acknowledged.
+    operationId: indexExists
+    parameters:
+    - name: index
+      in: path
+      value: $inputs.index
+    successCriteria:
+    - condition: $statusCode == 404
+    outputs:
+      finalStatus: $statusCode
+  outputs:
+    capturedDefinition: $steps.captureDefinition.outputs.capturedDefinition
+    acknowledged: $steps.deleteIndex.outputs.acknowledged

@@ -1,0 +1,91 @@
+arazzo: 1.0.1
+info:
+  title: Elasticsearch Cluster Health Triage
+  summary: Walk cluster health, the cat health and nodes views, cluster stats, and cluster state to triage a degraded cluster.
+  description: >-
+    The operational sweep an on-call engineer runs when a cluster goes yellow or
+    red. The workflow reads the structured health summary first, then widens out
+    through the human-readable cat views for health and node membership, then
+    pulls the aggregate stats that reveal resource pressure, and finally reads
+    the full cluster state — the heaviest call, deliberately placed last so the
+    cheap signals get a chance to explain the problem before it is made. Every
+    step spells out its request inline so the flow can be read and executed
+    without opening the underlying OpenAPI description.
+  version: 1.0.0
+sourceDescriptions:
+- name: elasticsearchApi
+  url: ../openapi/elasticsearch-openapi.yml
+  type: openapi
+workflows:
+- workflowId: cluster-health-triage
+  summary: Collect a full diagnostic picture of an Elasticsearch cluster, cheapest signal first.
+  description: >-
+    Reads cluster health, cat health, cat nodes, cluster stats, and cluster state
+    in escalating order of cost, returning the status, unassigned shard count,
+    node roster, and resource totals needed to triage a degraded cluster.
+  inputs:
+    type: object
+    properties:
+      verbose:
+        type: boolean
+        description: Whether the cat indices style views should include column headers.
+  steps:
+  - stepId: readHealth
+    description: >-
+      Read the structured cluster health summary. The status colour and the
+      unassigned shard count are usually enough to classify the incident.
+    operationId: clusterHealth
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      clusterName: $response.body#/cluster_name
+      status: $response.body#/status
+      numberOfNodes: $response.body#/number_of_nodes
+      activeShards: $response.body#/active_shards
+      unassignedShards: $response.body#/unassigned_shards
+  - stepId: readCatHealth
+    description: >-
+      Read the cat health view for the same signal in the tabular form that gets
+      pasted into an incident channel.
+    operationId: catHealth
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      healthTable: $response.body
+  - stepId: readCatNodes
+    description: >-
+      Read the node roster to confirm every expected node is still a member of
+      the cluster, which is the most common explanation for unassigned shards.
+    operationId: catNodes
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      nodesTable: $response.body
+  - stepId: readClusterStats
+    description: >-
+      Pull aggregate cluster statistics for the index count, document totals, and
+      store and heap pressure behind a degraded status.
+    operationId: clusterStats
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      indexCount: $response.body#/indices/count
+      documentCount: $response.body#/indices/docs/count
+      storeSizeInBytes: $response.body#/indices/store/size_in_bytes
+      nodeCount: $response.body#/nodes/count/total
+  - stepId: readClusterState
+    description: >-
+      Read the full cluster state last. It is the most expensive call in the
+      sweep, so it runs only after the cheaper signals have been captured.
+    operationId: clusterState
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      stateVersion: $response.body#/version
+      masterNode: $response.body#/master_node
+  outputs:
+    status: $steps.readHealth.outputs.status
+    unassignedShards: $steps.readHealth.outputs.unassignedShards
+    nodesTable: $steps.readCatNodes.outputs.nodesTable
+    documentCount: $steps.readClusterStats.outputs.documentCount
+    masterNode: $steps.readClusterState.outputs.masterNode

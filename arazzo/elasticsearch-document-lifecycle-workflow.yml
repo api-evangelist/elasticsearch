@@ -1,0 +1,128 @@
+arazzo: 1.0.1
+info:
+  title: Elasticsearch Document Lifecycle
+  summary: Index a document by id, read it back, apply a partial update, and confirm the merged result.
+  description: >-
+    The core create-read-update loop for a single Elasticsearch document. The
+    workflow indexes a document at a known id, reads it back to confirm what was
+    persisted, applies a partial update through the _update endpoint, and reads
+    it a second time so the caller can see the merged source and the incremented
+    version. Reading back after each write is what makes this flow useful as an
+    integration test as well as a data path. Every step spells out its request
+    inline so the flow can be read and executed without opening the underlying
+    OpenAPI description.
+  version: 1.0.0
+sourceDescriptions:
+- name: elasticsearchApi
+  url: ../openapi/elasticsearch-openapi.yml
+  type: openapi
+workflows:
+- workflowId: document-lifecycle
+  summary: Index, read, partially update, and re-read a single document by id.
+  description: >-
+    Writes a document at a caller-supplied id, verifies the persisted source,
+    merges a partial document into it, and verifies the merged result and the
+    resulting version number.
+  inputs:
+    type: object
+    required:
+    - index
+    - id
+    - document
+    - partialUpdate
+    properties:
+      index:
+        type: string
+        description: The index to write the document into.
+      id:
+        type: string
+        description: The caller-controlled document id.
+      document:
+        type: object
+        description: The full document source to index.
+      partialUpdate:
+        type: object
+        description: The partial document to merge into the existing source.
+  steps:
+  - stepId: indexDocument
+    description: >-
+      Index the document at the supplied id. Elasticsearch answers 201 when the
+      document is new and 200 when it replaced an existing document at that id,
+      so both are accepted.
+    operationId: indexDocument
+    parameters:
+    - name: index
+      in: path
+      value: $inputs.index
+    - name: id
+      in: path
+      value: $inputs.id
+    requestBody:
+      contentType: application/json
+      payload: $inputs.document
+    successCriteria:
+    - condition: $statusCode == 200 || $statusCode == 201
+    outputs:
+      documentId: $response.body#/_id
+      result: $response.body#/result
+      version: $response.body#/_version
+  - stepId: readAfterIndex
+    description: >-
+      Read the document straight back to confirm exactly what was persisted
+      before any update is attempted.
+    operationId: getDocument
+    parameters:
+    - name: index
+      in: path
+      value: $inputs.index
+    - name: id
+      in: path
+      value: $inputs.id
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      found: $response.body#/found
+      source: $response.body#/_source
+      version: $response.body#/_version
+  - stepId: applyPartialUpdate
+    description: >-
+      Merge the partial document into the stored source. Fields not named in the
+      partial update are left untouched.
+    operationId: updateDocument
+    parameters:
+    - name: index
+      in: path
+      value: $inputs.index
+    - name: id
+      in: path
+      value: $inputs.id
+    requestBody:
+      contentType: application/json
+      payload:
+        doc: $inputs.partialUpdate
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      result: $response.body#/result
+      version: $response.body#/_version
+  - stepId: readAfterUpdate
+    description: >-
+      Read the document a second time to confirm the merge landed and to capture
+      the version Elasticsearch incremented to.
+    operationId: getDocument
+    parameters:
+    - name: index
+      in: path
+      value: $inputs.index
+    - name: id
+      in: path
+      value: $inputs.id
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      mergedSource: $response.body#/_source
+      finalVersion: $response.body#/_version
+  outputs:
+    documentId: $steps.indexDocument.outputs.documentId
+    mergedSource: $steps.readAfterUpdate.outputs.mergedSource
+    finalVersion: $steps.readAfterUpdate.outputs.finalVersion

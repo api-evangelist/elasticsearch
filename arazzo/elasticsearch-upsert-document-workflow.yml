@@ -1,0 +1,134 @@
+arazzo: 1.0.1
+info:
+  title: Elasticsearch Upsert a Document by Business Key
+  summary: Search an index for a document matching a business key and update it if found, otherwise index a new one.
+  description: >-
+    Elasticsearch addresses documents by internal _id, but most source systems
+    key their records on a business field such as an SKU or an email address.
+    This workflow closes that gap: it runs a term query against the key field,
+    branches on whether a hit came back, and either merges the payload into the
+    matched document or indexes a brand new one at a caller-supplied id. This is
+    the pattern behind most sync jobs that push an external system of record into
+    Elasticsearch. Every step spells out its request inline so the flow can be
+    read and executed without opening the underlying OpenAPI description.
+  version: 1.0.0
+sourceDescriptions:
+- name: elasticsearchApi
+  url: ../openapi/elasticsearch-openapi.yml
+  type: openapi
+workflows:
+- workflowId: upsert-document
+  summary: Upsert a document into an index keyed on a business field rather than the internal document id.
+  description: >-
+    Resolves an existing document by a term query on the key field, then updates
+    the matched document or indexes a new one when nothing matched.
+  inputs:
+    type: object
+    required:
+    - index
+    - keyField
+    - keyValue
+    - document
+    - newDocumentId
+    properties:
+      index:
+        type: string
+        description: The index to upsert the document into.
+      keyField:
+        type: string
+        description: The keyword field used to detect an existing document (e.g. "sku").
+      keyValue:
+        type: string
+        description: The business key value to match on.
+      document:
+        type: object
+        description: The document field values to write.
+      newDocumentId:
+        type: string
+        description: The document id to use when no existing document matched.
+  steps:
+  - stepId: findExisting
+    description: >-
+      Run a term query on the key field, asking for at most one hit. A zero-hit
+      response is a valid answer here and drives the create branch.
+    operationId: searchDsl
+    parameters:
+    - name: index
+      in: path
+      value: $inputs.index
+    requestBody:
+      contentType: application/json
+      payload:
+        query:
+          term:
+            $inputs.keyField: $inputs.keyValue
+        size: 1
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      matchedId: $response.body#/hits/hits/0/_id
+      totalHits: $response.body#/hits/total/value
+    onSuccess:
+    - name: documentExists
+      type: goto
+      stepId: updateMatched
+      criteria:
+      - context: $response.body
+        condition: $.hits.total.value > 0
+        type: jsonpath
+    - name: documentMissing
+      type: goto
+      stepId: indexNew
+      criteria:
+      - context: $response.body
+        condition: $.hits.total.value == 0
+        type: jsonpath
+  - stepId: updateMatched
+    description: >-
+      Merge the payload into the document that matched the business key. Fields
+      absent from the payload are preserved.
+    operationId: updateDocument
+    parameters:
+    - name: index
+      in: path
+      value: $inputs.index
+    - name: id
+      in: path
+      value: $steps.findExisting.outputs.matchedId
+    requestBody:
+      contentType: application/json
+      payload:
+        doc: $inputs.document
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      documentId: $response.body#/_id
+      result: $response.body#/result
+      version: $response.body#/_version
+    onSuccess:
+    - name: done
+      type: end
+  - stepId: indexNew
+    description: >-
+      Index a new document at the supplied id when no existing document carried
+      the business key.
+    operationId: indexDocument
+    parameters:
+    - name: index
+      in: path
+      value: $inputs.index
+    - name: id
+      in: path
+      value: $inputs.newDocumentId
+    requestBody:
+      contentType: application/json
+      payload: $inputs.document
+    successCriteria:
+    - condition: $statusCode == 200 || $statusCode == 201
+    outputs:
+      documentId: $response.body#/_id
+      result: $response.body#/result
+      version: $response.body#/_version
+  outputs:
+    updatedDocumentId: $steps.updateMatched.outputs.documentId
+    createdDocumentId: $steps.indexNew.outputs.documentId
