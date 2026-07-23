@@ -1,0 +1,87 @@
+openapi: 3.1.0
+info:
+  title: Elasticsearch REST Cat Search API
+  version: 8.x
+  description: Elasticsearch REST API provides programmatic access to document indexing, searching, aggregations, index lifecycle, and cluster operations. Supports basic authentication and API keys.
+  contact:
+    name: Elastic
+    url: https://www.elastic.co/guide/en/elasticsearch/reference/current/rest-apis.html
+servers:
+- url: https://{host}:{port}
+  description: Elasticsearch cluster
+  variables:
+    host:
+      default: localhost
+    port:
+      default: '9200'
+security:
+- basicAuth: []
+- apiKeyAuth: []
+tags:
+- name: Search
+paths:
+  /{index}/_search:
+    get:
+      summary: Search documents (URI)
+      operationId: searchUri
+      tags:
+      - Search
+      parameters:
+      - in: path
+        name: index
+        required: true
+        schema:
+          type: string
+      - in: query
+        name: q
+        schema:
+          type: string
+      - in: query
+        name: size
+        schema:
+          type: integer
+      - in: query
+        name: from
+        schema:
+          type: integer
+      responses:
+        '200':
+          description: Search results
+    post:
+      summary: Search documents (DSL)
+      operationId: searchDsl
+      tags:
+      - Search
+      parameters:
+      - in: path
+        name: index
+        required: true
+        schema:
+          type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                query:
+                  type: object
+                aggs:
+                  type: object
+                size:
+                  type: integer
+                from:
+                  type: integer
+      responses:
+        '200':
+          description: Search results
+components:
+  securitySchemes:
+    basicAuth:
+      type: http
+      scheme: basic
+    apiKeyAuth:
+      type: apiKey
+      in: header
+      name: Authorization

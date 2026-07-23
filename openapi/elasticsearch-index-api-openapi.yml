@@ -1,0 +1,100 @@
+openapi: 3.1.0
+info:
+  title: Elasticsearch REST Cat Index API
+  version: 8.x
+  description: Elasticsearch REST API provides programmatic access to document indexing, searching, aggregations, index lifecycle, and cluster operations. Supports basic authentication and API keys.
+  contact:
+    name: Elastic
+    url: https://www.elastic.co/guide/en/elasticsearch/reference/current/rest-apis.html
+servers:
+- url: https://{host}:{port}
+  description: Elasticsearch cluster
+  variables:
+    host:
+      default: localhost
+    port:
+      default: '9200'
+security:
+- basicAuth: []
+- apiKeyAuth: []
+tags:
+- name: Index
+paths:
+  /{index}:
+    put:
+      summary: Create index
+      operationId: createIndex
+      tags:
+      - Index
+      parameters:
+      - in: path
+        name: index
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                settings:
+                  type: object
+                mappings:
+                  type: object
+      responses:
+        '200':
+          description: Index created
+    get:
+      summary: Get index info
+      operationId: getIndex
+      tags:
+      - Index
+      parameters:
+      - in: path
+        name: index
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Index info
+    delete:
+      summary: Delete index
+      operationId: deleteIndex
+      tags:
+      - Index
+      parameters:
+      - in: path
+        name: index
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Deleted
+    head:
+      summary: Check index existence
+      operationId: indexExists
+      tags:
+      - Index
+      parameters:
+      - in: path
+        name: index
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Exists
+        '404':
+          description: Not found
+components:
+  securitySchemes:
+    basicAuth:
+      type: http
+      scheme: basic
+    apiKeyAuth:
+      type: apiKey
+      in: header
+      name: Authorization

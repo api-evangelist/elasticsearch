@@ -1,0 +1,143 @@
+openapi: 3.1.0
+info:
+  title: Elasticsearch REST Cat Document API
+  version: 8.x
+  description: Elasticsearch REST API provides programmatic access to document indexing, searching, aggregations, index lifecycle, and cluster operations. Supports basic authentication and API keys.
+  contact:
+    name: Elastic
+    url: https://www.elastic.co/guide/en/elasticsearch/reference/current/rest-apis.html
+servers:
+- url: https://{host}:{port}
+  description: Elasticsearch cluster
+  variables:
+    host:
+      default: localhost
+    port:
+      default: '9200'
+security:
+- basicAuth: []
+- apiKeyAuth: []
+tags:
+- name: Document
+paths:
+  /{index}/_doc/{id}:
+    put:
+      summary: Index a document
+      operationId: indexDocument
+      tags:
+      - Document
+      parameters:
+      - in: path
+        name: index
+        required: true
+        schema:
+          type: string
+      - in: path
+        name: id
+        required: true
+        schema:
+          type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+      responses:
+        '200':
+          description: Indexed
+        '201':
+          description: Created
+    get:
+      summary: Get a document
+      operationId: getDocument
+      tags:
+      - Document
+      parameters:
+      - in: path
+        name: index
+        required: true
+        schema:
+          type: string
+      - in: path
+        name: id
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Document
+    delete:
+      summary: Delete a document
+      operationId: deleteDocument
+      tags:
+      - Document
+      parameters:
+      - in: path
+        name: index
+        required: true
+        schema:
+          type: string
+      - in: path
+        name: id
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Deleted
+  /{index}/_update/{id}:
+    post:
+      summary: Update a document
+      operationId: updateDocument
+      tags:
+      - Document
+      parameters:
+      - in: path
+        name: index
+        required: true
+        schema:
+          type: string
+      - in: path
+        name: id
+        required: true
+        schema:
+          type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                doc:
+                  type: object
+                script:
+                  type: object
+      responses:
+        '200':
+          description: Updated
+  /_bulk:
+    post:
+      summary: Bulk index operations
+      operationId: bulk
+      tags:
+      - Document
+      requestBody:
+        required: true
+        content:
+          application/x-ndjson:
+            schema:
+              type: string
+      responses:
+        '200':
+          description: Bulk results
+components:
+  securitySchemes:
+    basicAuth:
+      type: http
+      scheme: basic
+    apiKeyAuth:
+      type: apiKey
+      in: header
+      name: Authorization

@@ -1,0 +1,75 @@
+openapi: 3.1.0
+info:
+  title: Elasticsearch REST Cat API
+  version: 8.x
+  description: Elasticsearch REST API provides programmatic access to document indexing, searching, aggregations, index lifecycle, and cluster operations. Supports basic authentication and API keys.
+  contact:
+    name: Elastic
+    url: https://www.elastic.co/guide/en/elasticsearch/reference/current/rest-apis.html
+servers:
+- url: https://{host}:{port}
+  description: Elasticsearch cluster
+  variables:
+    host:
+      default: localhost
+    port:
+      default: '9200'
+security:
+- basicAuth: []
+- apiKeyAuth: []
+tags:
+- name: Cat
+paths:
+  /_cat/indices:
+    get:
+      summary: Cat indices
+      operationId: catIndices
+      tags:
+      - Cat
+      parameters:
+      - in: query
+        name: v
+        schema:
+          type: boolean
+      responses:
+        '200':
+          description: Plain text table
+          content:
+            text/plain:
+              schema:
+                type: string
+  /_cat/nodes:
+    get:
+      summary: Cat nodes
+      operationId: catNodes
+      tags:
+      - Cat
+      responses:
+        '200':
+          description: Plain text table
+          content:
+            text/plain:
+              schema:
+                type: string
+  /_cat/health:
+    get:
+      summary: Cat health
+      operationId: catHealth
+      tags:
+      - Cat
+      responses:
+        '200':
+          description: Plain text table
+          content:
+            text/plain:
+              schema:
+                type: string
+components:
+  securitySchemes:
+    basicAuth:
+      type: http
+      scheme: basic
+    apiKeyAuth:
+      type: apiKey
+      in: header
+      name: Authorization
