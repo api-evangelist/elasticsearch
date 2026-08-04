@@ -1,0 +1,22 @@
+{
+  "provider": "elasticsearch",
+  "sources": [
+    "elasticsearch-cat-api-openapi.yml",
+    "elasticsearch-cluster-api-openapi.yml",
+    "elasticsearch-document-api-openapi.yml",
+    "elasticsearch-index-api-openapi.yml",
+    "elasticsearch-search-api-openapi.yml"
+  ],
+  "outputs": [
+    "elasticsearch-cat-api-openapi.yml",
+    "elasticsearch-cluster-api-openapi.yml",
+    "elasticsearch-document-api-openapi.yml",
+    "elasticsearch-index-api-openapi.yml",
+    "elasticsearch-search-api-openapi.yml"
+  ],
+  "archived": [],
+  "errors": [],
+  "warnings": [],
+  "notes": [],
+  "skipped": []
+}
