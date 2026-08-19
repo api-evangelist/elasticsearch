@@ -1,0 +1,378 @@
+{
+  "item": [
+    {
+      "id": "0a3ee3c1-4a53-4eb6-9c81-58c9bea51419",
+      "name": "Cluster",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "d0e97534-45ce-4fb5-bcbb-70f63dae24ed",
+          "name": "Cluster health",
+          "request": {
+            "name": "Cluster health",
+            "description": {},
+            "url": {
+              "path": [
+                "_cluster",
+                "health"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "description": {
+                    "content": "",
+                    "type": "text/plain"
+                  },
+                  "type": "any",
+                  "value": "{{host}}",
+                  "key": "host"
+                },
+                {
+                  "description": {
+                    "content": "",
+                    "type": "text/plain"
+                  },
+                  "type": "any",
+                  "value": "{{port}}",
+                  "key": "port"
+                }
+              ]
+            },
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "964823ed-6a60-42b7-9ff0-29808f6796b7",
+              "name": "Health",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "_cluster",
+                    "health"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "description": {
+                        "content": "",
+                        "type": "text/plain"
+                      },
+                      "type": "any",
+                      "value": "{{host}}",
+                      "key": "host"
+                    },
+                    {
+                      "description": {
+                        "content": "",
+                        "type": "text/plain"
+                      },
+                      "type": "any",
+                      "value": "{{port}}",
+                      "key": "port"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "848667ac-3b04-4865-a7e5-c012748b444d",
+          "name": "Cluster state",
+          "request": {
+            "name": "Cluster state",
+            "description": {},
+            "url": {
+              "path": [
+                "_cluster",
+                "state"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "description": {
+                    "content": "",
+                    "type": "text/plain"
+                  },
+                  "type": "any",
+                  "value": "{{host}}",
+                  "key": "host"
+                },
+                {
+                  "description": {
+                    "content": "",
+                    "type": "text/plain"
+                  },
+                  "type": "any",
+                  "value": "{{port}}",
+                  "key": "port"
+                }
+              ]
+            },
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "6018c4e1-57f6-4fe0-8ec7-dcaae278a143",
+              "name": "State",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "_cluster",
+                    "state"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "description": {
+                        "content": "",
+                        "type": "text/plain"
+                      },
+                      "type": "any",
+                      "value": "{{host}}",
+                      "key": "host"
+                    },
+                    {
+                      "description": {
+                        "content": "",
+                        "type": "text/plain"
+                      },
+                      "type": "any",
+                      "value": "{{port}}",
+                      "key": "port"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "ca739c20-4e92-45d7-9408-43a17356edbb",
+          "name": "Cluster stats",
+          "request": {
+            "name": "Cluster stats",
+            "description": {},
+            "url": {
+              "path": [
+                "_cluster",
+                "stats"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "description": {
+                    "content": "",
+                    "type": "text/plain"
+                  },
+                  "type": "any",
+                  "value": "{{host}}",
+                  "key": "host"
+                },
+                {
+                  "description": {
+                    "content": "",
+                    "type": "text/plain"
+                  },
+                  "type": "any",
+                  "value": "{{port}}",
+                  "key": "port"
+                }
+              ]
+            },
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "57482aa3-b3d2-48ca-9859-1fdba3ac91c6",
+              "name": "Stats",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "_cluster",
+                    "stats"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "description": {
+                        "content": "",
+                        "type": "text/plain"
+                      },
+                      "type": "any",
+                      "value": "{{host}}",
+                      "key": "host"
+                    },
+                    {
+                      "description": {
+                        "content": "",
+                        "type": "text/plain"
+                      },
+                      "type": "any",
+                      "value": "{{port}}",
+                      "key": "port"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "type": "any",
+      "value": "localhost",
+      "key": "host"
+    },
+    {
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "type": "any",
+      "value": "9200",
+      "key": "port"
+    },
+    {
+      "type": "string",
+      "value": "https://{{host}}:{{port}}",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "basic",
+    "basic": [
+      {
+        "key": "username",
+        "value": "{{basicAuthUsername}}"
+      },
+      {
+        "key": "password",
+        "value": "{{basicAuthPassword}}"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "baf70949-1d84-44cf-b427-70e062ebccc5",
+    "name": "Elasticsearch REST Cat Cluster API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "Elasticsearch REST API provides programmatic access to document indexing, searching, aggregations, index lifecycle, and cluster operations. Supports basic authentication and API keys.\n\nContact Support:\n Name: Elastic",
+      "type": "text/plain"
+    }
+  }
+}

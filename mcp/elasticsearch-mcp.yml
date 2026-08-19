@@ -7,27 +7,31 @@ server:
   name: elasticsearch
   official: true
   transports:
-    - stdio
-    - http          # streamable-HTTP (replaces deprecated SSE)
+  - stdio
+  - http
   docker_image: docker.elastic.co/mcp/elasticsearch
-  npm_package: "@elastic/mcp-server-elasticsearch"   # deprecated npm distribution
+  npm_package: '@elastic/mcp-server-elasticsearch'
   config:
-    - ES_URL
-    - ES_API_KEY
-  notes: >-
-    Official Elastic MCP server connecting AI agents to Elasticsearch data over
-    the Model Context Protocol. This standalone server is now deprecated and
-    receives only critical security updates; it is superseded by the Elastic
-    Agent Builder MCP endpoint available in Elastic 9.2.0+ and Elasticsearch
+  - ES_URL
+  - ES_API_KEY
+  notes: Official Elastic MCP server connecting AI agents to Elasticsearch data over the Model Context
+    Protocol. This standalone server is now deprecated and receives only critical security updates; it
+    is superseded by the Elastic Agent Builder MCP endpoint available in Elastic 9.2.0+ and Elasticsearch
     Serverless projects.
 tools:
-  - name: list_indices
-    description: List all available Elasticsearch indices.
-  - name: get_mappings
-    description: Get field mappings for a specific Elasticsearch index.
-  - name: search
-    description: Perform an Elasticsearch search using Query DSL.
-  - name: esql
-    description: Execute an ES|QL query.
-  - name: get_shards
-    description: Get shard information for all or specific indices.
+- name: list_indices
+  description: List all available Elasticsearch indices.
+- name: get_mappings
+  description: Get field mappings for a specific Elasticsearch index.
+- name: search
+  description: Perform an Elasticsearch search using Query DSL.
+- name: esql
+  description: Execute an ES|QL query.
+- name: get_shards
+  description: Get shard information for all or specific indices.
+deployment:
+  mode: unclear
+  verified: searched
+  tools: 5
+  checked: '2026-08-12'
+  source: catalog MCP census

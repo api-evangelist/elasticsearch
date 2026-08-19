@@ -1,0 +1,353 @@
+{
+  "item": [
+    {
+      "id": "f1bfc118-e42e-4c50-a211-f994d6f17256",
+      "name": "Search",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "9eb01c62-3645-4f45-9cec-b1e9dc2b2bfb",
+          "name": "Search documents (URI)",
+          "request": {
+            "name": "Search documents (URI)",
+            "description": {},
+            "url": {
+              "path": [
+                ":index",
+                "_search"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "q",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "size",
+                  "value": "<integer>"
+                },
+                {
+                  "disabled": false,
+                  "key": "from",
+                  "value": "<integer>"
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "index",
+                  "description": "(Required) "
+                },
+                {
+                  "description": {
+                    "content": "",
+                    "type": "text/plain"
+                  },
+                  "type": "any",
+                  "value": "{{host}}",
+                  "key": "host"
+                },
+                {
+                  "description": {
+                    "content": "",
+                    "type": "text/plain"
+                  },
+                  "type": "any",
+                  "value": "{{port}}",
+                  "key": "port"
+                }
+              ]
+            },
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "e7814ec7-37ac-4faf-ad04-9badb0ecf07a",
+              "name": "Search results",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    ":index",
+                    "_search"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "q",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "size",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "from",
+                      "value": "<integer>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "index",
+                      "description": "(Required) "
+                    },
+                    {
+                      "description": {
+                        "content": "",
+                        "type": "text/plain"
+                      },
+                      "type": "any",
+                      "value": "{{host}}",
+                      "key": "host"
+                    },
+                    {
+                      "description": {
+                        "content": "",
+                        "type": "text/plain"
+                      },
+                      "type": "any",
+                      "value": "{{port}}",
+                      "key": "port"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "2e101614-e28f-4afb-a1f2-ca597925c58a",
+          "name": "Search documents (DSL)",
+          "request": {
+            "name": "Search documents (DSL)",
+            "description": {},
+            "url": {
+              "path": [
+                ":index",
+                "_search"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "index",
+                  "description": "(Required) "
+                },
+                {
+                  "description": {
+                    "content": "",
+                    "type": "text/plain"
+                  },
+                  "type": "any",
+                  "value": "{{host}}",
+                  "key": "host"
+                },
+                {
+                  "description": {
+                    "content": "",
+                    "type": "text/plain"
+                  },
+                  "type": "any",
+                  "value": "{{port}}",
+                  "key": "port"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"query\": \"<object>\",\n  \"aggs\": \"<object>\",\n  \"size\": \"<integer>\",\n  \"from\": \"<integer>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "64516ec4-496c-45bc-aff3-90f9f55184de",
+              "name": "Search results",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    ":index",
+                    "_search"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "index",
+                      "description": "(Required) "
+                    },
+                    {
+                      "description": {
+                        "content": "",
+                        "type": "text/plain"
+                      },
+                      "type": "any",
+                      "value": "{{host}}",
+                      "key": "host"
+                    },
+                    {
+                      "description": {
+                        "content": "",
+                        "type": "text/plain"
+                      },
+                      "type": "any",
+                      "value": "{{port}}",
+                      "key": "port"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"query\": \"<object>\",\n  \"aggs\": \"<object>\",\n  \"size\": \"<integer>\",\n  \"from\": \"<integer>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "type": "any",
+      "value": "localhost",
+      "key": "host"
+    },
+    {
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "type": "any",
+      "value": "9200",
+      "key": "port"
+    },
+    {
+      "type": "string",
+      "value": "https://{{host}}:{{port}}",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "basic",
+    "basic": [
+      {
+        "key": "username",
+        "value": "{{basicAuthUsername}}"
+      },
+      {
+        "key": "password",
+        "value": "{{basicAuthPassword}}"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "2ca1df1d-85e0-4dde-9dd7-eed9d0c8218f",
+    "name": "Elasticsearch REST Cat Search API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "Elasticsearch REST API provides programmatic access to document indexing, searching, aggregations, index lifecycle, and cluster operations. Supports basic authentication and API keys.\n\nContact Support:\n Name: Elastic",
+      "type": "text/plain"
+    }
+  }
+}

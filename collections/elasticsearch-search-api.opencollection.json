@@ -1,0 +1,80 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Elasticsearch REST Cat Search API",
+    "version": "8.x"
+  },
+  "request": {
+    "auth": {
+      "type": "basic",
+      "username": "{{username}}",
+      "password": "{{password}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Search",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Search documents (URI)",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{host}:{port}/:index/_search",
+            "params": [
+              {
+                "name": "index",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "q",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "size",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "from",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "Search documents (URI)"
+        },
+        {
+          "info": {
+            "name": "Search documents (DSL)",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://{host}:{port}/:index/_search",
+            "params": [
+              {
+                "name": "index",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Search documents (DSL)"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

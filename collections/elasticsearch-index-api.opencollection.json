@@ -1,0 +1,101 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Elasticsearch REST Cat Index API",
+    "version": "8.x"
+  },
+  "request": {
+    "auth": {
+      "type": "basic",
+      "username": "{{username}}",
+      "password": "{{password}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Index",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get index info",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{host}:{port}/:index",
+            "params": [
+              {
+                "name": "index",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Get index info"
+        },
+        {
+          "info": {
+            "name": "Create index",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://{host}:{port}/:index",
+            "params": [
+              {
+                "name": "index",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Create index"
+        },
+        {
+          "info": {
+            "name": "Delete index",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://{host}:{port}/:index",
+            "params": [
+              {
+                "name": "index",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Delete index"
+        },
+        {
+          "info": {
+            "name": "Check index existence",
+            "type": "http"
+          },
+          "http": {
+            "method": "HEAD",
+            "url": "https://{host}:{port}/:index",
+            "params": [
+              {
+                "name": "index",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Check index existence"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

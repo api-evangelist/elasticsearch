@@ -1,0 +1,65 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Elasticsearch REST Cat API",
+    "version": "8.x"
+  },
+  "request": {
+    "auth": {
+      "type": "basic",
+      "username": "{{username}}",
+      "password": "{{password}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Cat",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Cat indices",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{host}:{port}/_cat/indices",
+            "params": [
+              {
+                "name": "v",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "Cat indices"
+        },
+        {
+          "info": {
+            "name": "Cat nodes",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{host}:{port}/_cat/nodes"
+          },
+          "docs": "Cat nodes"
+        },
+        {
+          "info": {
+            "name": "Cat health",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{host}:{port}/_cat/health"
+          },
+          "docs": "Cat health"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}
