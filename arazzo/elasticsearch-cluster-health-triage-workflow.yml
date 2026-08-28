@@ -13,8 +13,11 @@ info:
     without opening the underlying OpenAPI description.
   version: 1.0.0
 sourceDescriptions:
-- name: elasticsearchApi
-  url: ../openapi/elasticsearch-openapi.yml
+- name: catApi
+  url: ../openapi/elasticsearch-cat-api-openapi.yml
+  type: openapi
+- name: clusterApi
+  url: ../openapi/elasticsearch-cluster-api-openapi.yml
   type: openapi
 workflows:
 - workflowId: cluster-health-triage

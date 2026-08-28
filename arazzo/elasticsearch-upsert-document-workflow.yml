@@ -13,8 +13,11 @@ info:
     read and executed without opening the underlying OpenAPI description.
   version: 1.0.0
 sourceDescriptions:
-- name: elasticsearchApi
-  url: ../openapi/elasticsearch-openapi.yml
+- name: documentApi
+  url: ../openapi/elasticsearch-document-api-openapi.yml
+  type: openapi
+- name: searchApi
+  url: ../openapi/elasticsearch-search-api-openapi.yml
   type: openapi
 workflows:
 - workflowId: upsert-document
