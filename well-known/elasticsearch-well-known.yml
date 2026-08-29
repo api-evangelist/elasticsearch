@@ -1,10 +1,15 @@
 generated: '2026-06-20'
 method: searched
 host: https://www.elastic.co
-note: >-
-  The Elasticsearch REST API base host is a self-managed cluster (default
-  https://localhost:9200) and exposes no public /.well-known/ surface. Probes
-  were run against the corporate/docs host www.elastic.co.
-documents:
+note: The Elasticsearch REST API base host is a self-managed cluster (default https://localhost:9200)
+  and exposes no public /.well-known/ surface. Probes were run against the corporate/docs host www.elastic.co.
+hosts:
+- host: https://www.elastic.co
+  documents:
   - path: /.well-known/security.txt
     status: 404
+x-shape-fix:
+  converted: '2026-08-20'
+  from: documents
+  note: Rewritten into hosts[] -> documents[], the only shape well_known_docs() in score.rb reads. A served
+    .well-known surface recorded in any other shape scores as absent.
