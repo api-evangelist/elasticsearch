@@ -29,7 +29,7 @@ accessModel:
   - plans
   - authentication
   - security
-  generated: '2026-08-26'
+  generated: '2026-09-03'
   method: derived
 image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/icons/elasticsearch.png
 tags:
@@ -41,7 +41,7 @@ tags:
 url: https://www.elastic.co/elasticsearch/
 created: '2024-01-01'
 modified: '2026-06-20'
-position: Consumer
+position: Consuming
 access: 3rd-Party
 specificationVersion: '0.23'
 apis:
