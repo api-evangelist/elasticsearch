@@ -51,6 +51,8 @@ apis:
   humanURL: https://www.elastic.co/guide/en/elasticsearch/reference/current/rest-apis.html
   baseURL: https://localhost:9200
   tags:
+  - Cats
+  tags_raw:
   - Cat
   properties:
   - type: OpenAPI
@@ -75,6 +77,8 @@ apis:
   humanURL: https://www.elastic.co/guide/en/elasticsearch/reference/current/rest-apis.html
   baseURL: https://localhost:9200
   tags:
+  - Documents
+  tags_raw:
   - Document
   properties:
   - type: OpenAPI
