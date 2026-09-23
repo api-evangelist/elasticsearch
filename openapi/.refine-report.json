@@ -1,11 +1,7 @@
 {
   "provider": "elasticsearch",
   "sources": [
-    "elasticsearch-cat-api-openapi.yml",
-    "elasticsearch-cluster-api-openapi.yml",
-    "elasticsearch-document-api-openapi.yml",
-    "elasticsearch-index-api-openapi.yml",
-    "elasticsearch-search-api-openapi.yml"
+    "_original/elasticsearch-openapi.yml"
   ],
   "outputs": [
     "elasticsearch-cat-api-openapi.yml",
@@ -18,12 +14,20 @@
   "errors": [],
   "warnings": [],
   "notes": [
-    "elasticsearch-cat-api-openapi.yml: upgraded openapi 3.1.0 -> OpenAPI 3.2.0",
-    "elasticsearch-cluster-api-openapi.yml: upgraded openapi 3.1.0 -> OpenAPI 3.2.0",
-    "elasticsearch-document-api-openapi.yml: upgraded openapi 3.1.0 -> OpenAPI 3.2.0",
-    "elasticsearch-index-api-openapi.yml: upgraded openapi 3.1.0 -> OpenAPI 3.2.0",
-    "elasticsearch-search-api-openapi.yml: upgraded openapi 3.1.0 -> OpenAPI 3.2.0",
+    "sourced from openapi/_original/ (1 archived document(s)); previously refined output at the top level was skipped rather than re-split",
+    "elasticsearch-openapi.yml: upgraded openapi 3.1.0 -> OpenAPI 3.2.0",
+    "elasticsearch-openapi.yml: declared missing tag: Cat",
+    "elasticsearch-openapi.yml: declared missing tag: Cluster",
+    "elasticsearch-openapi.yml: declared missing tag: Document",
+    "elasticsearch-openapi.yml: declared missing tag: Index",
+    "elasticsearch-openapi.yml: declared missing tag: Search",
     "apis.yml register: already-registered"
   ],
-  "skipped": []
+  "skipped": [
+    "elasticsearch-cat-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "elasticsearch-cluster-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "elasticsearch-document-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "elasticsearch-index-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "elasticsearch-search-api-openapi.yml: previously refined output, superseded by openapi/_original/"
+  ]
 }
