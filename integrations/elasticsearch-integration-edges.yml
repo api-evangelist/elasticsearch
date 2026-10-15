@@ -43,9 +43,55 @@ edges:
       - update or create
   detected_by: sweep-cdp.py
   first_seen: '2026-10-14'
+- partner_name: LlamaIndex
+  partner: llamaindex
+  partner_match: framework
+  channel: partner-built
+  direction: partner-built
+  type: coverage
+  relationship: system-coverage
+  evidence: https://github.com/run-llama/llama_index/tree/main/llama-index-integrations/vector_stores/llama-index-vector-stores-elasticsearch
+  coverage_role:
+  - embeddings
+  - retrieval-reader
+  - vector-store
+  framework_signals:
+    packages:
+    - llama-index-embeddings-elasticsearch
+    - llama-index-readers-elasticsearch
+    - llama-index-vector-stores-elasticsearch
+    roles:
+    - embeddings
+    - retrieval-reader
+    - vector-store
+    vendor_domain: elastic.co
+  matched_by: verified-domain-table
+  detected_by: sweep-rag-vector.py
+  first_seen: '2026-10-15'
+- partner_name: LangChain
+  partner: langchain
+  partner_match: framework
+  channel: partner-built
+  direction: partner-built
+  type: coverage
+  relationship: system-coverage
+  evidence: https://github.com/langchain-ai/langchain-elastic
+  coverage_role:
+  - vector-store
+  framework_signals:
+    packages:
+    - langchain-elastic
+    roles:
+    - vector-store
+    vendor_domain: elastic.co
+  matched_by: verified-domain-table
+  detected_by: sweep-rag-vector.py
+  first_seen: '2026-10-15'
 method: searched
 checked:
 - https://fivetran.com/docs/activations/destinations/available-destinations/elasticsearch
+- https://github.com/langchain-ai/langchain/tree/master/libs/partners
+- https://github.com/run-llama/llama_index/tree/main/llama-index-integrations
 - https://hightouch.com/docs/destinations/elasticsearch-destination
 source:
 - https://fivetran.com/docs/activations/destinations/available-destinations/elasticsearch
