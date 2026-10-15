@@ -106,7 +106,7 @@
     node_path: Elastic/Elasticsearch
     trigger: false
     builder: n8n (built-in node)
-  status: pending-generation
+  status: not-a-workflow
   arazzo: null
 - slug: elasticsearch-govramp
   label: GovRAMP
