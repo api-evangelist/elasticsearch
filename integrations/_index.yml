@@ -165,7 +165,7 @@
     - alpha
     in_cloud: true
     builder: unknown (community connector; contributor not in the record)
-  status: pending-generation
+  status: not-a-workflow
   arazzo: null
 - slug: elasticsearch-fivetran
   label: Fivetran
@@ -191,7 +191,7 @@
     - connectors/databases/elasticsearch
     vendor_link: https://www.elastic.co/elasticsearch/
     builder: Fivetran
-  status: pending-generation
+  status: not-a-workflow
   arazzo: null
 - slug: elasticsearch-meltano
   label: Meltano
@@ -220,5 +220,5 @@
     quality:
     - silver
     builder: 'community (Meltano Hub variant maintainers: airbyte)'
-  status: pending-partner-spec
+  status: not-a-workflow
   arazzo: null
