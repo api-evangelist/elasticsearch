@@ -1,4 +1,4 @@
-# Elasticsearch (elasticsearch)
+# Elasticsearch
 
 <!-- API-EVANGELIST-PROVENANCE:BEGIN -->
 > ### About this repository
@@ -66,66 +66,160 @@
 
 Elasticsearch is an open source search and analytics engine for all types of data, including textual, numerical, geospatial, structured, and unstructured. It provides a RESTful API for indexing, searching, and managing data, with powerful aggregation capabilities and real-time analytics at scale.
 
-**APIs.json:** [https://www.elastic.co/elasticsearch/](https://www.elastic.co/elasticsearch/)
+**Areas:** Analytics · Database · Full-Text Search · NoSQL · Search
 
-## Scope
+## Elasticsearch on APIs.io
 
-- **Type:** Index
-- **Position:** Consumer
-- **Access:** 3rd-Party
+Everything profiled for Elasticsearch is published on APIs.io rather than in this repository. Start at the provider page — **[apis.io/providers/elasticsearch/](https://apis.io/providers/elasticsearch/)** — or go straight to one of the APIs or properties below.
 
-## Tags
+### APIs (5)
 
-- Analytics
-- Database
-- Full-Text Search
-- NoSQL
-- Search
+- [Elasticsearch Cat API](https://apis.io/apis/elasticsearch/elasticsearch-cat-api/) — The Cat API from Elasticsearch — 3 operation(s) for cat.
+- [Elasticsearch Cluster API](https://apis.io/apis/elasticsearch/elasticsearch-cluster-api/) — The Cluster API from Elasticsearch — 3 operation(s) for cluster.
+- [Elasticsearch Document API](https://apis.io/apis/elasticsearch/elasticsearch-document-api/) — The Document API from Elasticsearch — 3 operation(s) for document.
+- [Elasticsearch Index API](https://apis.io/apis/elasticsearch/elasticsearch-index-api/) — The Index API from Elasticsearch — 1 operation(s) for index.
+- [Elasticsearch Search API](https://apis.io/apis/elasticsearch/elasticsearch-search-api/) — The Search API from Elasticsearch — 1 operation(s) for search.
 
-## Timestamps
+### Published properties
 
-- **Created:** 2024-01-01
-- **Modified:** 2026-05-04
+Each property below is a page on APIs.io carrying the machine-readable artifact and what it says.
 
-## APIs
+#### Arazzo workflows (8)
 
-### Elasticsearch REST API
+Multi-step workflows that chain operations into a business task.
 
-RESTful API for indexing, searching, and managing data in Elasticsearch clusters, including document, index, cluster, and security operations.
+- [Elasticsearch Bulk Load and Verify](https://apis.io/arazzos/elasticsearch/elasticsearch-bulk-load-workflow/)
+- [Elasticsearch Cluster Health Triage](https://apis.io/arazzos/elasticsearch/elasticsearch-cluster-health-triage-workflow/)
+- [Elasticsearch Document Lifecycle](https://apis.io/arazzos/elasticsearch/elasticsearch-document-lifecycle-workflow/)
+- [Elasticsearch Purge a Document by Business Key](https://apis.io/arazzos/elasticsearch/elasticsearch-document-purge-workflow/)
+- [Elasticsearch Bootstrap an Index](https://apis.io/arazzos/elasticsearch/elasticsearch-index-bootstrap-workflow/)
+- [Elasticsearch Tear Down an Index](https://apis.io/arazzos/elasticsearch/elasticsearch-index-teardown-workflow/)
+- [Elasticsearch Search and Fetch the Top Hit](https://apis.io/arazzos/elasticsearch/elasticsearch-search-and-fetch-workflow/)
+- [Elasticsearch Upsert a Document by Business Key](https://apis.io/arazzos/elasticsearch/elasticsearch-upsert-document-workflow/)
 
-- **Human URL:** [https://www.elastic.co/guide/en/elasticsearch/reference/current/rest-apis.html](https://www.elastic.co/guide/en/elasticsearch/reference/current/rest-apis.html)
-- **Base URL:** `https://localhost:9200`
+#### MCP servers (1)
 
-#### Tags
+Model Context Protocol servers that expose the API to agents.
 
-- Analytics
-- Database
-- Search
+- [elasticsearch](https://apis.io/servers/elasticsearch/elasticsearch/)
 
-#### Properties
+#### Agentic access (1)
 
-- [Documentation](https://www.elastic.co/guide/en/elasticsearch/reference/current/index.html)
-- [OpenAPI](https://github.com/elastic/elasticsearch-specification) — [OpenAPI Specification](https://spec.openapis.org/oas/latest.html)
-- [Postman Collection](collections/elasticsearch.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
-- [Open Collection](collections/elasticsearch.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
+Which operations an agent can call, which act, and which need a human in the loop.
 
-## Common Properties
+- [Elasticsearch Agentic Access](https://apis.io/agentic-access/elasticsearch/elasticsearch-agentic-access/)
 
-- [LinkedIn](https://www.linkedin.com/company/elastic-co)
+#### Collections (7)
+
+Postman and Open Collection request collections.
+
+- [Elasticsearch REST API](https://apis.io/collections/elasticsearch/open-elastic-search/)
+- [Elasticsearch REST API](https://apis.io/collections/elasticsearch/open-elasticsearch/)
+- [Elasticsearch REST Cat API](https://apis.io/collections/elasticsearch/open-elasticsearch-cat-api/)
+- [Elasticsearch REST Cat Cluster API](https://apis.io/collections/elasticsearch/open-elasticsearch-cluster-api/)
+- [Elasticsearch REST Cat Document API](https://apis.io/collections/elasticsearch/open-elasticsearch-document-api/)
+- [Elasticsearch REST Cat Index API](https://apis.io/collections/elasticsearch/open-elasticsearch-index-api/)
+- [Elasticsearch REST Cat Search API](https://apis.io/collections/elasticsearch/open-elasticsearch-search-api/)
+
+#### Overlays (1)
+
+OpenAPI overlays, including conversational phrasing for each operation.
+
+- [Elasticsearch Openapi Overlay](https://apis.io/overlays/elasticsearch/elasticsearch-openapi-overlay/)
+
+#### Security (4)
+
+Authentication, trust centre, and vulnerability disclosure.
+
+- [Elasticsearch Authentication](https://apis.io/security/elasticsearch/elasticsearch-authentication/)
+- [Elasticsearch Domain Security](https://apis.io/security/elasticsearch/elasticsearch-domain-security/)
+- [Elasticsearch Trust Center](https://apis.io/security/elasticsearch/elasticsearch-trust-center/)
+- [Elasticsearch Vulnerability Disclosure](https://apis.io/security/elasticsearch/elasticsearch-vulnerability-disclosure/)
+
+#### Plans and pricing (1)
+
+Published plans, tiers and prices.
+
+- [Elasticsearch Plans Pricing](https://apis.io/plans/elasticsearch/elasticsearch-plans-pricing/)
+
+#### Rate limits (1)
+
+Published request limits.
+
+- [Elasticsearch Rate Limits](https://apis.io/rate-limits/elasticsearch/elasticsearch-rate-limits/)
+
+#### FinOps (1)
+
+What the API costs to run, by operation.
+
+- [Elasticsearch Finops](https://apis.io/finops/elasticsearch/elasticsearch-finops/)
+
+## Where to find this API
+
+Links to the company's own pages. This repository publishes no copy of their specifications — the canonical document is theirs and lives at the URLs below.
+
 - [Website](https://www.elastic.co/elasticsearch/)
 - [Documentation](https://www.elastic.co/guide/en/elasticsearch/reference/current/index.html)
-- [Getting Started](https://www.elastic.co/guide/en/elasticsearch/reference/current/getting-started.html)
-- [Blog](https://www.elastic.co/blog/)
-- [Status Page](https://status.elastic.co/)
-- [Terms of Service](https://www.elastic.co/agreements/)
-- [Privacy Policy](https://www.elastic.co/legal/privacy-statement)
+- [Getting started](https://www.elastic.co/guide/en/elasticsearch/reference/current/getting-started.html)
 - [Pricing](https://www.elastic.co/pricing/)
 - [Support](https://www.elastic.co/support)
-- [GitHub Organization](https://github.com/elastic)
-- [Features](undefined)
-- [Integrations](https://www.elastic.co/integrations)
+- [Blog](https://www.elastic.co/blog/)
+- [Terms of service](https://www.elastic.co/agreements/)
+- [Privacy policy](https://www.elastic.co/legal/privacy-statement)
+- [GitHub](https://github.com/elastic)
+- [Status](https://status.elastic.co/)
 
-## Maintainers
+## API Evangelist rating
 
-**FN:** Kin Lane
-**Email:** kin@apievangelist.com
+**Kin Score 42.5** — developing · rubric 0.25.0 · scored 2026-10-23
+
+| Facet | Score |
+|---|---|
+| Discoverability | 63.3 |
+| Contract quality | 42.2 |
+| Contract governance | 4.5 |
+| Operational transparency | 50.0 |
+| Developer ergonomics | 47.6 |
+| Access clarity | 36.8 |
+
+**Agent readiness 25.8** — agent-aware
+
+| Agent-readiness dimension | Result |
+|---|---|
+| Spec Presence | yes |
+| Agentic Access | derived (partial credit) |
+| Reversibility Documented | — |
+| MCP Server | documented (partial credit) |
+| Auth Clarity | bearer (partial credit) |
+| Idempotency | — |
+| Error Semantics | documented (partial credit) |
+| OpenAPI Examples | — |
+| Rate Limit Signal | derived (partial credit) |
+| Event Surface Described | — |
+| Agent Skills | — |
+| Well Known Catalog | — |
+| Consent Identity | — |
+| Agent Card | — |
+| Dry Run Mode | — |
+| Delegated Identity | — |
+| Protected Resource Metadata | — |
+| Dynamic Client Registration | — |
+| Agentic Commerce | — |
+| Pagination Ratio | na |
+| Operation Distinctiveness | distinct |
+
+**Regulatory alignment 31.4** — Horizontal (data, software, accessibility, platform)
+
+The rubric is published at [github.com/api-evangelist/kin-score](https://github.com/api-evangelist/kin-score). The per-check breakdown behind these numbers — which checks were earned, partial or missed — along with score history and how this provider compares to its peers, is available at [apis.io/providers/elasticsearch/](https://apis.io/providers/elasticsearch/).
+
+## How this profile is made
+
+API Evangelist profiles a company's public API surface the way a developer would find it: the website, developer portal and documentation, the specifications it publishes, its public repositories, and its pricing, status and changelog pages. From that it derives the properties above — contracts split per API, workflows, schemas, collections, governance rules, plans and rate limits — and scores them against the published [Kin Score rubric](https://github.com/api-evangelist/kin-score).
+
+The artifacts are published on [APIs.io](https://apis.io), not in this repository. This repository is the public record for Elasticsearch: the place to say something is wrong, missing or out of date, and to ask for a re-score or a removal.
+
+## Open an issue
+
+- **Something about this listing** — a wrong description, a missing API, a stale artifact or a question about the rating: [open an issue on this repository](https://github.com/api-evangelist/elasticsearch/issues/new).
+- **A new API, or one that is not in the catalog yet** — [submit it on APIs.io](https://apis.io/add/).
+- **Anything else** — [the APIs.io inbox](https://github.com/api-search/inbox/issues/new) or [info@apievangelist.com](mailto:info@apievangelist.com).
